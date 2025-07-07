@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import ReferralShare from "@/components/ReferralShare";
 
 export default function Index() {
   const categories = [
@@ -293,9 +294,13 @@ export default function Index() {
                   </p>
                 </div>
               </div>
-              <Button variant="secondary" size="sm">
-                Refer Now
-              </Button>
+              <ReferralShare
+                trigger={
+                  <Button variant="secondary" size="sm">
+                    Refer Now
+                  </Button>
+                }
+              />
             </div>
           </CardContent>
         </Card>
