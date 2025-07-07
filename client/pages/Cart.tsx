@@ -27,7 +27,8 @@ export default function Cart() {
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
   const fromCategory = searchParams.get("from") === "category";
-  const categoryId = searchParams.get("categoryId");
+  const mainCategory = searchParams.get("mainCategory");
+  const subCategory = searchParams.get("subCategory");
 
   useEffect(() => {
     // Load cart items from localStorage
@@ -77,8 +78,10 @@ export default function Cart() {
 
   const continueShopping = () => {
     setShowPaymentOptions(false);
-    if (categoryId) {
-      navigate(`/category/${categoryId}`);
+    if (mainCategory && subCategory) {
+      navigate(`/category/${mainCategory}/${subCategory}`);
+    } else if (mainCategory) {
+      navigate(`/categories/${mainCategory}`);
     } else {
       navigate("/");
     }
