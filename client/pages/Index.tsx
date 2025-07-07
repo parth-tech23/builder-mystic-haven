@@ -230,16 +230,6 @@ export default function Index() {
             })}
           </div>
         </div>
-
-        {/* Quick Actions */}
-        <div className="mt-12">
-          <Button size="lg" variant="outline" className="h-16 w-full" asChild>
-            <Link to="/profile">
-              <Gift className="h-5 w-5 mr-2" />
-              View Profile & Rewards
-            </Link>
-          </Button>
-        </div>
       </main>
     </div>
   );
