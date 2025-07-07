@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
   ShoppingCart,
@@ -280,7 +280,36 @@ const getDefaultProducts = (category: string): Product[] => [
 
 export default function Category() {
   const { categoryId } = useParams();
+  const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  const addToCart = (product: Product, store: any) => {
+    // Get existing cart from localStorage
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    // Create cart item
+    const cartItem = {
+      id: `${product.id}-${store.name}`,
+      productId: product.id,
+      productName: product.name,
+      productImage: product.image,
+      storeName: store.name,
+      price: store.price,
+      originalPrice: store.originalPrice,
+      discount: store.discount,
+      rating: store.rating,
+      deliveryTime: store.deliveryTime,
+      quantity: 1,
+      addedAt: new Date().toISOString(),
+    };
+
+    // Add to cart
+    const updatedCart = [...existingCart, cartItem];
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+    // Navigate to cart with payment options
+    navigate("/cart?from=category&categoryId=" + categoryId);
+  };
 
   const products =
     productData[categoryId || ""] || getDefaultProducts(categoryId || "");
@@ -534,6 +563,7 @@ export default function Category() {
                       <Button
                         className="w-full"
                         disabled={store.availability === "out-of-stock"}
+                        onClick={() => addToCart(selectedProduct, store)}
                       >
                         <Plus className="h-4 w-4 mr-2" />
                         Add to Cart
