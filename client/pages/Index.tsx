@@ -232,17 +232,11 @@ export default function Index() {
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-12 grid grid-cols-2 gap-4">
-          <Button size="lg" className="h-16" asChild>
-            <Link to="/login">
-              <User className="h-5 w-5 mr-2" />
-              Login / Register
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" className="h-16" asChild>
+        <div className="mt-12">
+          <Button size="lg" variant="outline" className="h-16 w-full" asChild>
             <Link to="/profile">
               <Gift className="h-5 w-5 mr-2" />
-              View Rewards
+              View Profile & Rewards
             </Link>
           </Button>
         </div>
