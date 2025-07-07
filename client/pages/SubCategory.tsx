@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface SubCategoryData {
   [key: string]: {
