@@ -373,11 +373,13 @@ export default function DeliveryTracking() {
 
             {/* Quick Actions */}
             <div className="space-y-3">
-              <Button variant="outline" className="w-full">
-                View Order Details
+              <Button variant="outline" className="w-full" asChild>
+                <Link to={`/order-details/${orderNumber}`}>
+                  View Order Details
+                </Link>
               </Button>
-              <Button variant="outline" className="w-full">
-                Cancel Order
+              <Button variant="outline" className="w-full" asChild>
+                <Link to={`/order-cancel/${orderNumber}`}>Cancel Order</Link>
               </Button>
             </div>
           </div>
