@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import ReferralShare from "@/components/ReferralShare";
 
 export default function Profile() {
   const orderHistory = [
@@ -281,9 +282,13 @@ export default function Profile() {
                 <p className="font-semibold text-orange-600">10 referrals</p>
               </div>
             </div>
-            <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
-              Refer More Friends
-            </Button>
+            <ReferralShare
+              trigger={
+                <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
+                  Refer More Friends
+                </Button>
+              }
+            />
           </CardContent>
         </Card>
 
