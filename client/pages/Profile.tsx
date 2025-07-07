@@ -9,6 +9,10 @@ import {
   Coins,
   Percent,
   TrendingUp,
+  Package,
+  Clock,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,6 +20,41 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 
 export default function Profile() {
+  const orderHistory = [
+    {
+      id: "FM7X9K2M",
+      date: "2024-01-15",
+      status: "out-for-delivery",
+      items: 3,
+      total: 485,
+      deliveryTime: "3:00 PM (Est.)",
+    },
+    {
+      id: "FM5H8L1P",
+      date: "2024-01-10",
+      status: "delivered",
+      items: 2,
+      total: 320,
+      deliveryTime: "Delivered",
+    },
+    {
+      id: "FM9K3N7Q",
+      date: "2024-01-08",
+      status: "delivered",
+      items: 5,
+      total: 650,
+      deliveryTime: "Delivered",
+    },
+    {
+      id: "FM2L6P4R",
+      date: "2024-01-05",
+      status: "cancelled",
+      items: 1,
+      total: 180,
+      deliveryTime: "Cancelled",
+    },
+  ];
+
   const rewardsData = {
     totalCashback: 1250,
     totalDiscounts: 3400,
@@ -63,6 +102,32 @@ export default function Profile() {
         status: "applied",
       },
     ],
+  };
+
+  const getOrderStatusIcon = (status: string) => {
+    switch (status) {
+      case "delivered":
+        return <CheckCircle className="h-4 w-4 text-green-600" />;
+      case "out-for-delivery":
+        return <Package className="h-4 w-4 text-primary" />;
+      case "cancelled":
+        return <XCircle className="h-4 w-4 text-red-600" />;
+      default:
+        return <Clock className="h-4 w-4 text-orange-600" />;
+    }
+  };
+
+  const getOrderStatusColor = (status: string) => {
+    switch (status) {
+      case "delivered":
+        return "text-green-600";
+      case "out-for-delivery":
+        return "text-primary";
+      case "cancelled":
+        return "text-red-600";
+      default:
+        return "text-orange-600";
+    }
   };
 
   const getTypeIcon = (type: string) => {
@@ -261,6 +326,84 @@ export default function Profile() {
                     >
                       {transaction.status}
                     </Badge>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Order History */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Package className="h-5 w-5 mr-2" />
+              Order History
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {orderHistory.map((order) => (
+                <div
+                  key={order.id}
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center space-x-3">
+                    {getOrderStatusIcon(order.status)}
+                    <div>
+                      <div className="flex items-center space-x-2">
+                        <p className="font-medium text-gray-900">
+                          Order #{order.id}
+                        </p>
+                        <Badge
+                          variant={
+                            order.status === "delivered"
+                              ? "default"
+                              : order.status === "cancelled"
+                                ? "destructive"
+                                : "secondary"
+                          }
+                          className="text-xs"
+                        >
+                          {order.status.replace("-", " ")}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        {new Date(order.date).toLocaleDateString()} •{" "}
+                        {order.items} items
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-bold text-lg text-gray-900">
+                      ₹{order.total}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {order.deliveryTime}
+                    </p>
+                    {order.status === "out-for-delivery" && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="mt-2"
+                        asChild
+                      >
+                        <Link to="/delivery-tracking">Track Order</Link>
+                      </Button>
+                    )}
+                    {(order.status === "delivered" ||
+                      order.status === "cancelled") && (
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        className="mt-2"
+                        asChild
+                      >
+                        <Link to={`/order-details/${order.id}`}>
+                          View Details
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
               ))}
