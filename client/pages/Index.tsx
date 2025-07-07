@@ -339,7 +339,7 @@ export default function Index() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between text-sm text-gray-600">
+                  <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
                     <div className="flex items-center space-x-3">
                       <div className="flex items-center space-x-1">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -348,6 +348,13 @@ export default function Index() {
                       <span>{store.deliveryTime}</span>
                     </div>
                   </div>
+                  <Button size="sm" className="w-full" asChild>
+                    <Link
+                      to={`/store/${store.name.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      Shop at {store.name}
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
             ))}
