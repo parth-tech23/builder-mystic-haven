@@ -35,7 +35,7 @@ const productData: { [key: string]: Product[] } = {
       id: "milk-1l",
       name: "Fresh Milk 1L",
       image: "🥛",
-      category: "dairy",
+      category: "dairy-eggs",
       stores: [
         {
           name: "Reliance Fresh",
@@ -71,7 +71,7 @@ const productData: { [key: string]: Product[] } = {
       id: "cheese-200g",
       name: "Cheddar Cheese 200g",
       image: "🧀",
-      category: "dairy",
+      category: "dairy-eggs",
       stores: [
         {
           name: "Reliance Fresh",
@@ -105,7 +105,7 @@ const productData: { [key: string]: Product[] } = {
       id: "yogurt-400g",
       name: "Greek Yogurt 400g",
       image: "🥄",
-      category: "dairy",
+      category: "dairy-eggs",
       stores: [
         {
           name: "Reliance Fresh",
@@ -141,7 +141,7 @@ const productData: { [key: string]: Product[] } = {
       id: "apples-1kg",
       name: "Red Apples 1kg",
       image: "🍎",
-      category: "fresh",
+      category: "fresh-produce",
       stores: [
         {
           name: "Reliance Fresh",
@@ -175,7 +175,7 @@ const productData: { [key: string]: Product[] } = {
       id: "bananas-1kg",
       name: "Fresh Bananas 1kg",
       image: "🍌",
-      category: "fresh",
+      category: "fresh-produce",
       stores: [
         {
           name: "Reliance Fresh",
@@ -209,7 +209,7 @@ const productData: { [key: string]: Product[] } = {
       id: "tomatoes-500g",
       name: "Fresh Tomatoes 500g",
       image: "🍅",
-      category: "fresh",
+      category: "fresh-produce",
       stores: [
         {
           name: "Reliance Fresh",
