@@ -401,7 +401,7 @@ export default function Category() {
             </div>
             <div className="flex items-center space-x-2">
               <Badge variant="outline" className="text-xs">
-                📍 Mumbai, Andheri
+                📍 Ahmedabad
               </Badge>
               <Button variant="ghost" size="sm" asChild>
                 <Link to="/cart">

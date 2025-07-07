@@ -93,8 +93,8 @@ export default function Index() {
     },
   ];
 
-  // Mock user location - Mumbai, Andheri
-  const userLocation = "Mumbai, Andheri";
+  // Mock user location - Ahmedabad
+  const userLocation = "Ahmedabad";
 
   const allStores = [
     {
