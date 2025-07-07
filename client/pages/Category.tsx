@@ -171,6 +171,24 @@ const productData: { [key: string]: Product[] } = {
       category: "fresh-produce",
       stores: [
         {
+          name: "Blinkit",
+          price: 170,
+          originalPrice: 185,
+          rating: 4.9,
+          reviews: 1340,
+          availability: "in-stock",
+          deliveryTime: "10-15 mins",
+          discount: "8% off",
+        },
+        {
+          name: "Zepto",
+          price: 168,
+          rating: 4.8,
+          reviews: 920,
+          availability: "in-stock",
+          deliveryTime: "8-12 mins",
+        },
+        {
           name: "Reliance Fresh",
           price: 180,
           originalPrice: 200,
