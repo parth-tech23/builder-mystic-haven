@@ -93,26 +93,90 @@ export default function Index() {
     },
   ];
 
-  const featuredStores = [
+  // Mock user location - Mumbai, Andheri
+  const userLocation = "Mumbai, Andheri";
+
+  const allStores = [
+    {
+      name: "Blinkit",
+      rating: 4.9,
+      deliveryTime: "10-15 mins",
+      discount: "15% off on first order",
+      categories: ["food", "health"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Pune"],
+      type: "Quick Commerce",
+    },
+    {
+      name: "Zepto",
+      rating: 4.8,
+      deliveryTime: "8-12 mins",
+      discount: "Free delivery",
+      categories: ["food", "health"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Hyderabad"],
+      type: "Quick Commerce",
+    },
     {
       name: "Reliance Fresh",
-      rating: 4.8,
+      rating: 4.7,
       deliveryTime: "25-30 mins",
       discount: "Up to 20% off",
+      categories: ["food", "home"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"],
+      type: "Supermarket",
     },
     {
       name: "DMart",
       rating: 4.6,
       deliveryTime: "30-35 mins",
       discount: "Best prices",
+      categories: ["food", "home", "clothing"],
+      locations: ["Mumbai", "Pune", "Bangalore", "Hyderabad"],
+      type: "Hypermarket",
+    },
+    {
+      name: "Croma",
+      rating: 4.5,
+      deliveryTime: "45-60 mins",
+      discount: "Extended warranty",
+      categories: ["electronics"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"],
+      type: "Electronics Store",
     },
     {
       name: "Big Basket",
       rating: 4.7,
       deliveryTime: "45-60 mins",
       discount: "Free delivery",
+      categories: ["food"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Hyderabad"],
+      type: "Online Grocery",
+    },
+    {
+      name: "Swiggy Instamart",
+      rating: 4.6,
+      deliveryTime: "15-25 mins",
+      discount: "10% cashback",
+      categories: ["food", "health"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Chennai", "Pune"],
+      type: "Quick Commerce",
+    },
+    {
+      name: "Flipkart Quick",
+      rating: 4.4,
+      deliveryTime: "20-30 mins",
+      discount: "Same day delivery",
+      categories: ["electronics", "clothing", "home"],
+      locations: ["Mumbai", "Delhi", "Bangalore", "Hyderabad"],
+      type: "Quick Commerce",
     },
   ];
+
+  // Filter stores based on user location
+  const featuredStores = allStores
+    .filter((store) =>
+      store.locations.some((location) => userLocation.includes(location)),
+    )
+    .slice(0, 6); // Show top 6 stores
 
   return (
     <div className="min-h-screen bg-gray-50">
