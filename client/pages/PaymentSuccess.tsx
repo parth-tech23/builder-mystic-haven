@@ -3,6 +3,7 @@ import { CheckCircle, Package, Clock, Gift, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import ReferralShare from "@/components/ReferralShare";
 import { useEffect, useState } from "react";
 
 export default function PaymentSuccess() {
@@ -157,9 +158,13 @@ export default function PaymentSuccess() {
                   benefits!
                 </p>
               </div>
-              <Button variant="secondary" size="sm" asChild>
-                <Link to="/profile">Refer Now</Link>
-              </Button>
+              <ReferralShare
+                trigger={
+                  <Button variant="secondary" size="sm">
+                    Refer Now
+                  </Button>
+                }
+              />
             </div>
           </CardContent>
         </Card>
