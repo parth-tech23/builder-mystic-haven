@@ -215,12 +215,13 @@ export default function Index() {
     },
   ];
 
-  // Filter stores based on user location
+  // Filter and sort stores based on user location and distance
   const featuredStores = allStores
     .filter((store) =>
       store.locations.some((location) => userLocation.includes(location)),
     )
-    .slice(0, 6); // Show top 6 stores
+    .sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance)) // Sort by distance
+    .slice(0, 6); // Show top 6 nearest stores
 
   return (
     <div className="min-h-screen bg-gray-50">
