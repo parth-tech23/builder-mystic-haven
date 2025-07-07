@@ -30,7 +30,7 @@ interface Product {
 }
 
 const productData: { [key: string]: Product[] } = {
-  dairy: [
+  "dairy-eggs": [
     {
       id: "milk-1l",
       name: "Fresh Milk 1L",
@@ -136,7 +136,7 @@ const productData: { [key: string]: Product[] } = {
       ],
     },
   ],
-  fresh: [
+  "fresh-produce": [
     {
       id: "apples-1kg",
       name: "Red Apples 1kg",
@@ -279,7 +279,7 @@ const getDefaultProducts = (category: string): Product[] => [
 ];
 
 export default function Category() {
-  const { categoryId } = useParams();
+  const { mainCategory, subCategory } = useParams();
   const navigate = useNavigate();
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -308,12 +308,14 @@ export default function Category() {
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
     // Navigate to cart with payment options
-    navigate("/cart?from=category&categoryId=" + categoryId);
+    navigate(
+      `/cart?from=category&mainCategory=${mainCategory}&subCategory=${subCategory}`,
+    );
   };
 
   const products =
-    productData[categoryId || ""] || getDefaultProducts(categoryId || "");
-  const categoryName = categoryId?.replace("-", " & ") || "Products";
+    productData[subCategory || ""] || getDefaultProducts(subCategory || "");
+  const categoryName = subCategory?.replace("-", " & ") || "Products";
 
   const getBestPrice = (product: Product) => {
     return Math.min(...product.stores.map((store) => store.price));
@@ -336,12 +338,21 @@ export default function Category() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="text-primary hover:text-primary/80">
+              <Link
+                to={`/categories/${mainCategory}`}
+                className="text-primary hover:text-primary/80"
+              >
                 <ArrowLeft className="h-5 w-5" />
               </Link>
-              <h1 className="text-xl font-semibold capitalize">
-                {categoryName}
-              </h1>
+              <div>
+                <h1 className="text-xl font-semibold capitalize">
+                  {categoryName}
+                </h1>
+                <p className="text-sm text-gray-600">
+                  {mainCategory?.replace("-", " & ")} →{" "}
+                  {subCategory?.replace("-", " & ")}
+                </p>
+              </div>
             </div>
             <Button variant="ghost" size="sm" asChild>
               <Link to="/cart">
