@@ -184,8 +184,11 @@ export default function Index() {
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
+            <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-primary">Sharva Mart</h1>
+              <Badge variant="outline" className="text-xs">
+                📍 {userLocation}
+              </Badge>
             </div>
 
             <div className="flex items-center space-x-4">
