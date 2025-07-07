@@ -238,7 +238,7 @@ export default function Index() {
                   className="hover:shadow-lg transition-all duration-200 cursor-pointer group hover:scale-105"
                   asChild
                 >
-                  <Link to={`/category/${category.id}`}>
+                  <Link to={`/categories/${category.id}`}>
                     <CardContent className="p-6 text-center">
                       <div
                         className={`w-16 h-16 mx-auto mb-4 rounded-full ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
