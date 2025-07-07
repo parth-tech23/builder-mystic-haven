@@ -199,6 +199,12 @@ export default function Cart() {
                           <p className="text-sm text-gray-600">
                             from {item.storeName}
                           </p>
+                          {item.storeLocation && (
+                            <p className="text-xs text-blue-600">
+                              📍 {item.storeLocation}
+                              {item.storeDistance && ` • ${item.storeDistance}`}
+                            </p>
+                          )}
                         </div>
                         <Button
                           variant="ghost"
