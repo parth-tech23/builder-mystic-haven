@@ -257,10 +257,15 @@ export default function Index() {
 
         {/* Featured Stores */}
         <div className="mb-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
-            Featured Stores
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-gray-900">
+              Stores Near You
+            </h3>
+            <Badge variant="outline" className="text-xs">
+              📍 {userLocation}
+            </Badge>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {featuredStores.map((store, index) => (
               <Card
                 key={index}
@@ -268,19 +273,24 @@ export default function Index() {
               >
                 <CardContent className="p-4">
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-gray-900">
-                      {store.name}
-                    </h4>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">
+                        {store.name}
+                      </h4>
+                      <p className="text-xs text-gray-500">{store.type}</p>
+                    </div>
                     <Badge variant="secondary" className="text-xs">
                       {store.discount}
                     </Badge>
                   </div>
-                  <div className="flex items-center space-x-4 text-sm text-gray-600">
-                    <div className="flex items-center space-x-1">
-                      <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                      <span>{store.rating}</span>
+                  <div className="flex items-center justify-between text-sm text-gray-600">
+                    <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-1">
+                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                        <span>{store.rating}</span>
+                      </div>
+                      <span>{store.deliveryTime}</span>
                     </div>
-                    <span>{store.deliveryTime}</span>
                   </div>
                 </CardContent>
               </Card>
