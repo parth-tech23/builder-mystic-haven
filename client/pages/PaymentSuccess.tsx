@@ -166,13 +166,16 @@ export default function PaymentSuccess() {
         {/* Action Buttons */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Button size="lg" className="h-14" asChild>
+            <Link to="/delivery-tracking">
+              <Package className="h-5 w-5 mr-2" />
+              Track Live Delivery
+            </Link>
+          </Button>
+          <Button size="lg" variant="outline" className="h-14" asChild>
             <Link to="/">
               <Home className="h-5 w-5 mr-2" />
               Continue Shopping
             </Link>
-          </Button>
-          <Button size="lg" variant="outline" className="h-14" asChild>
-            <Link to="/profile">Track Order & View Profile</Link>
           </Button>
         </div>
 
