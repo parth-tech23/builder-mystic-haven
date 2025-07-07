@@ -11,6 +11,8 @@ interface CartItem {
   productName: string;
   productImage: string;
   storeName: string;
+  storeLocation?: string;
+  storeDistance?: string;
   price: number;
   originalPrice?: number;
   discount?: string;
