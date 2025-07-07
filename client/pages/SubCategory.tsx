@@ -453,12 +453,14 @@ export default function SubCategory() {
         {/* Sub-categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {categoryData.subcategories.map((subcategory) => (
-            <Card
+            <Link
               key={subcategory.id}
-              className={`hover:shadow-lg transition-all duration-200 cursor-pointer group hover:scale-105 ${subcategory.color}`}
-              asChild
+              to={`/category/${categoryId}/${subcategory.id}`}
+              className="block"
             >
-              <Link to={`/category/${categoryId}/${subcategory.id}`}>
+              <Card
+                className={`hover:shadow-lg transition-all duration-200 cursor-pointer group hover:scale-105 ${subcategory.color}`}
+              >
                 <CardContent className="p-6 text-center">
                   <div className="text-4xl mb-4">{subcategory.image}</div>
                   <h3 className="font-semibold text-gray-900 mb-2">
@@ -471,8 +473,8 @@ export default function SubCategory() {
                     {subcategory.items}
                   </p>
                 </CardContent>
-              </Link>
-            </Card>
+              </Card>
+            </Link>
           ))}
         </div>
       </main>
