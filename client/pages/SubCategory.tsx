@@ -381,7 +381,7 @@ const subCategoryData: SubCategoryData = {
       {
         id: "music",
         name: "Music",
-        image: "���",
+        image: "🎵",
         items: "50+ items",
         color: "bg-blue-50 border-blue-200",
         description: "CDs, vinyl records, and music accessories",
@@ -426,11 +426,7 @@ export default function SubCategory() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Badge variant="outline" className="text-xs">
-                📍 Ahmedabad
-              </Badge>
-            </div>
+
             <Button variant="ghost" size="sm" asChild>
               <Link to="/cart">
                 <ShoppingCart className="h-5 w-5" />

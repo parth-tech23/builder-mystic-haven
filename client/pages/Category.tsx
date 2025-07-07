@@ -399,16 +399,11 @@ export default function Category() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <Badge variant="outline" className="text-xs">
-                📍 Ahmedabad
-              </Badge>
-              <Button variant="ghost" size="sm" asChild>
-                <Link to="/cart">
-                  <ShoppingCart className="h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
+            <Button variant="ghost" size="sm" asChild>
+              <Link to="/cart">
+                <ShoppingCart className="h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </header>
