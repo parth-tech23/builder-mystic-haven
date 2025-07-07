@@ -49,7 +49,7 @@ export default function Login() {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
           </Link>
-          <h1 className="text-3xl font-bold text-primary mb-2">FreshMart</h1>
+          <h1 className="text-3xl font-bold text-primary mb-2">Sharva Mart</h1>
           <p className="text-gray-600">Welcome back to fresh groceries</p>
         </div>
 

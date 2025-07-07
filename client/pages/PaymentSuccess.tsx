@@ -152,8 +152,9 @@ export default function PaymentSuccess() {
                   Refer Friends & Earn More!
                 </h3>
                 <p className="text-white/90 text-sm">
-                  Share FreshMart with friends and earn ₹100 for each successful
-                  referral. Get 10 referrals and unlock premium benefits!
+                  Share Sharva Mart with friends and earn ₹100 for each
+                  successful referral. Get 10 referrals and unlock premium
+                  benefits!
                 </p>
               </div>
               <Button variant="secondary" size="sm" asChild>
@@ -181,7 +182,9 @@ export default function PaymentSuccess() {
 
         {/* Footer Message */}
         <div className="text-center mt-8 space-y-2">
-          <p className="text-gray-600">Thank you for choosing FreshMart! 🛒</p>
+          <p className="text-gray-600">
+            Thank you for choosing Sharva Mart! 🛒
+          </p>
           <p className="text-sm text-gray-500">
             Order confirmation sent to your registered mobile number
           </p>
