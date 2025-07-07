@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import SubCategory from "./pages/SubCategory";
 import Category from "./pages/Category";
+import Store from "./pages/Store";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
 import Payment from "./pages/Payment";
@@ -35,6 +36,7 @@ const App = () => (
             path="/category/:mainCategory/:subCategory"
             element={<Category />}
           />
+          <Route path="/store/:storeId" element={<Store />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
