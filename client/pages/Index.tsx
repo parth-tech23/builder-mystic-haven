@@ -326,10 +326,18 @@ export default function Index() {
                         {store.name}
                       </h4>
                       <p className="text-xs text-gray-500">{store.type}</p>
+                      <p className="text-xs text-blue-600">
+                        {store.storeLocation}
+                      </p>
                     </div>
-                    <Badge variant="secondary" className="text-xs">
-                      {store.discount}
-                    </Badge>
+                    <div className="text-right">
+                      <Badge variant="secondary" className="text-xs mb-1">
+                        {store.discount}
+                      </Badge>
+                      <p className="text-xs text-green-600 font-medium">
+                        {store.distance}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center justify-between text-sm text-gray-600">
                     <div className="flex items-center space-x-3">
