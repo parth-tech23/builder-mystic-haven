@@ -310,12 +310,12 @@ export default function Index() {
             {categories.map((category) => {
               const IconComponent = category.icon;
               return (
-                <Card
+                <Link
                   key={category.id}
-                  className="hover:shadow-lg transition-all duration-200 cursor-pointer group hover:scale-105"
-                  asChild
+                  to={`/categories/${category.id}`}
+                  className="block"
                 >
-                  <Link to={`/categories/${category.id}`}>
+                  <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer group hover:scale-105">
                     <CardContent className="p-6 text-center">
                       <div
                         className={`w-16 h-16 mx-auto mb-4 rounded-full ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
@@ -330,8 +330,8 @@ export default function Index() {
                         {category.subcategories} categories
                       </p>
                     </CardContent>
-                  </Link>
-                </Card>
+                  </Card>
+                </Link>
               );
             })}
           </div>
