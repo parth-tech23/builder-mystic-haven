@@ -29,19 +29,21 @@ export default function Cart() {
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
   const fromCategory = searchParams.get("from") === "category";
+  const fromStore = searchParams.get("from") === "store";
   const mainCategory = searchParams.get("mainCategory");
   const subCategory = searchParams.get("subCategory");
+  const storeId = searchParams.get("storeId");
 
   useEffect(() => {
     // Load cart items from localStorage
     const savedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(savedCart);
 
-    // Show payment options if redirected from category after adding item
-    if (fromCategory) {
+    // Show payment options if redirected from category or store after adding item
+    if (fromCategory || fromStore) {
       setShowPaymentOptions(true);
     }
-  }, [fromCategory]);
+  }, [fromCategory, fromStore]);
 
   const updateQuantity = (itemId: string, newQuantity: number) => {
     if (newQuantity === 0) {
@@ -80,7 +82,9 @@ export default function Cart() {
 
   const continueShopping = () => {
     setShowPaymentOptions(false);
-    if (mainCategory && subCategory) {
+    if (storeId) {
+      navigate(`/store/${storeId}`);
+    } else if (mainCategory && subCategory) {
       navigate(`/category/${mainCategory}/${subCategory}`);
     } else if (mainCategory) {
       navigate(`/categories/${mainCategory}`);
