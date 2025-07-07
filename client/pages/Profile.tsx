@@ -1,9 +1,96 @@
 import { Link } from "react-router-dom";
-import { ArrowLeft, User, Gift, CreditCard, LogOut } from "lucide-react";
+import {
+  ArrowLeft,
+  User,
+  Gift,
+  CreditCard,
+  LogOut,
+  Trophy,
+  Coins,
+  Percent,
+  TrendingUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 export default function Profile() {
+  const rewardsData = {
+    totalCashback: 1250,
+    totalDiscounts: 3400,
+    totalRewards: 850,
+    referralProgress: 3, // out of 10
+    recentTransactions: [
+      {
+        id: 1,
+        type: "cashback",
+        amount: 25,
+        description: "Order #FM7X9K2M cashback",
+        date: "2024-01-15",
+        status: "credited",
+      },
+      {
+        id: 2,
+        type: "discount",
+        amount: 150,
+        description: "Fresh produce 10% off",
+        date: "2024-01-14",
+        status: "applied",
+      },
+      {
+        id: 3,
+        type: "referral",
+        amount: 100,
+        description: "Friend referral bonus",
+        date: "2024-01-12",
+        status: "credited",
+      },
+      {
+        id: 4,
+        type: "cashback",
+        amount: 35,
+        description: "Order #FM5H8L1P cashback",
+        date: "2024-01-10",
+        status: "credited",
+      },
+      {
+        id: 5,
+        type: "discount",
+        amount: 200,
+        description: "Dairy products 15% off",
+        date: "2024-01-08",
+        status: "applied",
+      },
+    ],
+  };
+
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case "cashback":
+        return <Coins className="h-4 w-4 text-green-600" />;
+      case "discount":
+        return <Percent className="h-4 w-4 text-blue-600" />;
+      case "referral":
+        return <Gift className="h-4 w-4 text-purple-600" />;
+      default:
+        return <Trophy className="h-4 w-4 text-orange-600" />;
+    }
+  };
+
+  const getTypeColor = (type: string) => {
+    switch (type) {
+      case "cashback":
+        return "text-green-600";
+      case "discount":
+        return "text-blue-600";
+      case "referral":
+        return "text-purple-600";
+      default:
+        return "text-orange-600";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -21,7 +108,7 @@ export default function Profile() {
       </header>
 
       {/* Profile Content */}
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* User Info */}
         <Card className="mb-6">
           <CardContent className="p-6">
@@ -40,7 +127,148 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        {/* Wallet & Rewards */}
+        {/* Rewards Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <Card className="border-green-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center">
+                <Coins className="h-5 w-5 mr-2 text-green-600" />
+                Total Cashback
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold text-green-600">
+                ₹{rewardsData.totalCashback}
+              </p>
+              <p className="text-sm text-gray-600">Earned this year</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-blue-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center">
+                <Percent className="h-5 w-5 mr-2 text-blue-600" />
+                Total Discounts
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold text-blue-600">
+                ₹{rewardsData.totalDiscounts}
+              </p>
+              <p className="text-sm text-gray-600">Saved on purchases</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-purple-200">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center">
+                <Gift className="h-5 w-5 mr-2 text-purple-600" />
+                Referral Rewards
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold text-purple-600">
+                ₹{rewardsData.totalRewards}
+              </p>
+              <p className="text-sm text-gray-600">
+                From {rewardsData.referralProgress} referrals
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Referral Progress */}
+        <Card className="mb-6 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200">
+          <CardHeader>
+            <CardTitle className="flex items-center justify-between">
+              <span className="flex items-center">
+                <TrendingUp className="h-5 w-5 mr-2 text-orange-600" />
+                Referral Progress
+              </span>
+              <Badge
+                variant="secondary"
+                className="bg-orange-100 text-orange-800"
+              >
+                {rewardsData.referralProgress}/10 friends
+              </Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <div className="flex justify-between text-sm mb-2">
+                <span>Progress to unlock premium benefits</span>
+                <span className="font-semibold">
+                  {rewardsData.referralProgress * 10}%
+                </span>
+              </div>
+              <Progress
+                value={rewardsData.referralProgress * 10}
+                className="h-3"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-gray-600">Next reward at:</p>
+                <p className="font-semibold text-orange-600">5 referrals</p>
+              </div>
+              <div>
+                <p className="text-gray-600">Unlock premium at:</p>
+                <p className="font-semibold text-orange-600">10 referrals</p>
+              </div>
+            </div>
+            <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
+              Refer More Friends
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Recent Rewards Activity */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle>Recent Rewards Activity</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {rewardsData.recentTransactions.map((transaction) => (
+                <div
+                  key={transaction.id}
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                >
+                  <div className="flex items-center space-x-3">
+                    {getTypeIcon(transaction.type)}
+                    <div>
+                      <p className="font-medium text-gray-900">
+                        {transaction.description}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {new Date(transaction.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p
+                      className={`font-bold text-lg ${getTypeColor(transaction.type)}`}
+                    >
+                      +₹{transaction.amount}
+                    </p>
+                    <Badge
+                      variant={
+                        transaction.status === "credited"
+                          ? "default"
+                          : "secondary"
+                      }
+                      className="text-xs"
+                    >
+                      {transaction.status}
+                    </Badge>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Wallet & Deposit */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <Card>
             <CardHeader className="pb-3">
@@ -50,49 +278,37 @@ export default function Profile() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-primary">₹1,250</p>
+              <p className="text-2xl font-bold text-primary">
+                ₹{rewardsData.totalCashback}
+              </p>
               <p className="text-sm text-gray-600">Available for shopping</p>
+              <Button variant="outline" size="sm" className="mt-3">
+                Add Money
+              </Button>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-primary/20">
             <CardHeader className="pb-3">
               <CardTitle className="text-lg flex items-center">
-                <Gift className="h-5 w-5 mr-2 text-orange-500" />
-                Referral Rewards
+                <Gift className="h-5 w-5 mr-2 text-primary" />
+                Refundable Deposit
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-2xl font-bold text-orange-500">3/10</p>
-              <p className="text-sm text-gray-600">Friends referred</p>
+              <p className="text-2xl font-bold text-primary">₹1,000</p>
+              <p className="text-sm text-green-600">Active & Secure</p>
+              <Button variant="outline" size="sm" className="mt-3">
+                Refund Deposit
+              </Button>
             </CardContent>
           </Card>
         </div>
 
-        {/* Deposit Status */}
-        <Card className="mb-6 border-primary/20">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold text-gray-900 mb-1">
-                  Refundable Deposit
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Your deposit unlocks better prices
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-xl font-bold text-primary">₹1,000</p>
-                <p className="text-sm text-green-600">Active</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Coming Soon Features */}
         <Card className="mb-6 opacity-75">
           <CardHeader>
-            <CardTitle className="text-lg">Coming Soon</CardTitle>
+            <CardTitle>Coming Soon</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
@@ -105,10 +321,6 @@ export default function Profile() {
             </div>
             <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
               <span className="text-gray-600">Payment Methods</span>
-              <span className="text-sm text-gray-500">🚧</span>
-            </div>
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <span className="text-gray-600">Referral Code</span>
               <span className="text-sm text-gray-500">🚧</span>
             </div>
           </CardContent>
