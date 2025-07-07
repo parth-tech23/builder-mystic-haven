@@ -473,9 +473,12 @@ export default function Profile() {
         <Button
           variant="outline"
           className="w-full border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+          asChild
         >
-          <LogOut className="h-4 w-4 mr-2" />
-          Logout
+          <Link to="/login">
+            <LogOut className="h-4 w-4 mr-2" />
+            Logout
+          </Link>
         </Button>
       </main>
     </div>
