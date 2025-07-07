@@ -4,12 +4,14 @@ import {
   User,
   Gift,
   Star,
-  Apple,
-  Milk,
-  Beef,
-  Cookie,
-  Flower2,
-  Soup,
+  UtensilsCrossed,
+  Shirt,
+  Smartphone,
+  Home,
+  Gamepad2,
+  Car,
+  Heart,
+  Book,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,52 +20,76 @@ import { Badge } from "@/components/ui/badge";
 export default function Index() {
   const categories = [
     {
-      id: "dairy",
-      name: "Dairy & Eggs",
-      icon: Milk,
-      color: "bg-blue-50 text-blue-600",
-      items: "150+ items",
-      image: "🥛",
-    },
-    {
-      id: "fresh",
-      name: "Fresh Produce",
-      icon: Apple,
+      id: "food",
+      name: "Food & Beverages",
+      icon: UtensilsCrossed,
       color: "bg-green-50 text-green-600",
-      items: "200+ items",
-      image: "🍎",
+      items: "2500+ items",
+      image: "🍽️",
+      subcategories: 8,
     },
     {
-      id: "meat",
-      name: "Meat & Seafood",
-      icon: Beef,
-      color: "bg-red-50 text-red-600",
-      items: "80+ items",
-      image: "🥩",
+      id: "clothing",
+      name: "Clothing & Fashion",
+      icon: Shirt,
+      color: "bg-purple-50 text-purple-600",
+      items: "1800+ items",
+      image: "👕",
+      subcategories: 6,
     },
     {
-      id: "bakery",
-      name: "Bakery",
-      icon: Cookie,
+      id: "electronics",
+      name: "Electronics",
+      icon: Smartphone,
+      color: "bg-blue-50 text-blue-600",
+      items: "1200+ items",
+      image: "📱",
+      subcategories: 7,
+    },
+    {
+      id: "home",
+      name: "Home & Garden",
+      icon: Home,
       color: "bg-orange-50 text-orange-600",
-      items: "90+ items",
-      image: "🍞",
+      items: "950+ items",
+      image: "🏠",
+      subcategories: 5,
     },
     {
-      id: "flowers",
-      name: "Flowers & Plants",
-      icon: Flower2,
+      id: "sports",
+      name: "Sports & Gaming",
+      icon: Gamepad2,
+      color: "bg-red-50 text-red-600",
+      items: "650+ items",
+      image: "🎮",
+      subcategories: 4,
+    },
+    {
+      id: "automotive",
+      name: "Automotive",
+      icon: Car,
+      color: "bg-gray-50 text-gray-600",
+      items: "420+ items",
+      image: "🚗",
+      subcategories: 3,
+    },
+    {
+      id: "health",
+      name: "Health & Beauty",
+      icon: Heart,
       color: "bg-pink-50 text-pink-600",
-      items: "45+ items",
-      image: "🌸",
+      items: "800+ items",
+      image: "💄",
+      subcategories: 4,
     },
     {
-      id: "frozen",
-      name: "Frozen Foods",
-      icon: Soup,
+      id: "books",
+      name: "Books & Media",
+      icon: Book,
       color: "bg-indigo-50 text-indigo-600",
-      items: "120+ items",
-      image: "🧊",
+      items: "350+ items",
+      image: "📚",
+      subcategories: 3,
     },
   ];
 
@@ -203,7 +229,7 @@ export default function Index() {
           <h3 className="text-xl font-semibold text-gray-900 mb-6">
             Shop by Category
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {categories.map((category) => {
               const IconComponent = category.icon;
               return (
@@ -223,6 +249,9 @@ export default function Index() {
                         {category.name}
                       </h4>
                       <p className="text-xs text-gray-500">{category.items}</p>
+                      <p className="text-xs text-gray-400">
+                        {category.subcategories} categories
+                      </p>
                     </CardContent>
                   </Link>
                 </Card>
