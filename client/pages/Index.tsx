@@ -7,7 +7,7 @@ import {
   Apple,
   Milk,
   Beef,
-  Bread,
+  Cookie,
   Flower2,
   Soup,
 } from "lucide-react";
@@ -44,7 +44,7 @@ export default function Index() {
     {
       id: "bakery",
       name: "Bakery",
-      icon: Bread,
+      icon: Cookie,
       color: "bg-orange-50 text-orange-600",
       items: "90+ items",
       image: "🍞",
