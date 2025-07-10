@@ -786,7 +786,6 @@ export default function Store() {
   };
 
   const allCategories = [
-    { id: "all", name: "All Products" },
     { id: "essentials", name: "Essentials" },
     { id: "home-lifestyle", name: "Home & Lifestyle" },
     { id: "electronics", name: "Electronics" },
