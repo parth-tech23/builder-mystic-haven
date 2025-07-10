@@ -391,32 +391,6 @@ export default function CartEnhanced() {
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {showPaymentOptions && (
           <>
-            <Card className="mb-4 bg-gradient-to-r from-primary to-primary/80 border-0">
-              <CardContent className="p-6">
-                <div className="text-center text-white">
-                  <h3 className="text-lg font-semibold mb-3">
-                    Item Added to Cart!
-                  </h3>
-                  <div className="flex gap-4 justify-center">
-                    <Button
-                      variant="secondary"
-                      onClick={continueShopping}
-                      className="min-w-[140px]"
-                    >
-                      Continue Shopping
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={proceedToPayment}
-                      className="min-w-[140px] bg-white/10 border-white/20 text-white hover:bg-white/20"
-                    >
-                      Proceed to Payment
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Price Comparison Alert */}
             {cartItems.length > 0 && (
               <Card className="mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200">
