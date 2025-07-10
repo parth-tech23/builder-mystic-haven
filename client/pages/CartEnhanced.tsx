@@ -614,7 +614,6 @@ export default function CartEnhanced() {
                               ))}
                               </div>
                             )}
-                              sortedComparisons.length > 2 && (
                                 <div className="space-y-2">
                                   <h4 className="text-sm font-semibold text-gray-700">
                                     All Available Options:
