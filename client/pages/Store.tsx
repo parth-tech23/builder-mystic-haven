@@ -222,7 +222,17 @@ export default function Store() {
     navigate(`/cart?from=store&storeId=${storeId}`);
   };
 
-  const categories = ["all", ...new Set(products.map((p) => p.category))];
+  const allCategories = [
+    { id: "all", name: "All Products" },
+    { id: "essentials", name: "Essentials" },
+    { id: "home-lifestyle", name: "Home & Lifestyle" },
+    { id: "electronics", name: "Electronics" },
+    { id: "automobile", name: "Automobile" },
+    { id: "hospitality", name: "Hospitality" },
+    { id: "fitness-sports", name: "Fitness & Sports" },
+  ];
+
+  const categories = allCategories;
 
   const filteredProducts =
     selectedCategory === "all"
@@ -300,13 +310,15 @@ export default function Store() {
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
+                key={category.id}
+                variant={
+                  selectedCategory === category.id ? "default" : "outline"
+                }
                 size="sm"
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => setSelectedCategory(category.id)}
                 className="capitalize"
               >
-                {category}
+                {category.name}
               </Button>
             ))}
           </div>
@@ -316,7 +328,8 @@ export default function Store() {
         <div>
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold text-gray-900">
-              {selectedCategory === "all" ? "All Products" : selectedCategory}
+              {allCategories.find((cat) => cat.id === selectedCategory)?.name ||
+                "Products"}
             </h3>
             <p className="text-sm text-gray-600">
               {filteredProducts.length} items available
