@@ -534,7 +534,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "powerbank-blinkit",
       name: "Power Bank 10000mAh",
-      image: "����",
+      image: "🔋",
       category: "electronics",
       price: 899,
       originalPrice: 1199,
@@ -1671,7 +1671,7 @@ export default function Store() {
         {/* Store Info */}
         <Card className="mb-6 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
           <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="flex items-center space-x-3">
                 <MapPin className="h-5 w-5 text-primary" />
                 <div>
@@ -1695,6 +1695,21 @@ export default function Store() {
                 <div>
                   <p className="font-semibold text-gray-900">{store.rating}</p>
                   <p className="text-sm text-gray-600">Store rating</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="h-5 w-5 text-primary">🚚</div>
+                <div>
+                  <p className="font-semibold text-gray-900">
+                    {store.deliveryCharge > 0
+                      ? `₹${store.deliveryCharge}`
+                      : "FREE"}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    {store.deliveryCharge > 0 && store.freeDeliveryAbove
+                      ? `Free above ₹${store.freeDeliveryAbove}`
+                      : "Delivery charge"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -1734,7 +1749,7 @@ export default function Store() {
               {
                 id: "automobile",
                 name: "Automobile",
-                icon: "��",
+                icon: "🚗",
                 color: "bg-gray-50 text-gray-600",
               },
               {
