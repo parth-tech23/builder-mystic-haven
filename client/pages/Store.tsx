@@ -131,6 +131,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.6,
       deliveryTime: "25-30 mins",
       availability: "in-stock",
+      deliveryCharge: 39,
+      freeDeliveryAbove: 999,
     },
     {
       storeName: "Zepto",
@@ -140,6 +142,7 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.8,
       deliveryTime: "10-15 mins",
       availability: "in-stock",
+      deliveryCharge: 0,
     },
     {
       storeName: "Blinkit",
@@ -151,6 +154,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.9,
       deliveryTime: "8-12 mins",
       availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
     },
     {
       storeName: "Reliance Fresh",
@@ -162,6 +167,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.7,
       deliveryTime: "20-25 mins",
       availability: "in-stock",
+      deliveryCharge: 49,
+      freeDeliveryAbove: 500,
     },
   ],
   bread: [
@@ -348,7 +355,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "bananas-blinkit",
       name: "Fresh Bananas 1kg",
-      image: "���",
+      image: "🍌",
       category: "essentials",
       price: 55,
       originalPrice: 60,
