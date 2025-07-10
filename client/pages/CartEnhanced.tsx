@@ -520,7 +520,7 @@ export default function CartEnhanced() {
                           <div className="border-t pt-4">
                             <div className="flex justify-between items-center mb-3">
                               <h4 className="text-sm font-semibold text-gray-700 flex items-center">
-                                💰 Price Comparison ({comparisons.length}{" "}
+                                💰 All Available Options ({comparisons.length}{" "}
                                 stores)
                               </h4>
                               <Button
