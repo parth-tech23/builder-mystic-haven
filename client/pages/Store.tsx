@@ -25,6 +25,18 @@ interface StoreProduct {
   availability: "in-stock" | "low-stock" | "out-of-stock";
 }
 
+interface StoreComparison {
+  storeName: string;
+  storeLocation: string;
+  storeDistance: string;
+  price: number;
+  originalPrice?: number;
+  discount?: string;
+  rating: number;
+  deliveryTime: string;
+  availability: string;
+}
+
 interface StoreInfo {
   name: string;
   displayName: string;
@@ -646,7 +658,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "laptop-croma",
       name: "Gaming Laptop",
-      image: "💻",
+      image: "��",
       category: "electronics",
       price: 65999,
       originalPrice: 75999,
