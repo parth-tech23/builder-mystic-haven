@@ -304,24 +304,70 @@ export default function Store() {
           </CardContent>
         </Card>
 
-        {/* Category Filter */}
+        {/* Category Carousel */}
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">
-            Shop by Category
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            Browse by Category
           </h3>
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Button
+          <div className="flex space-x-4 overflow-x-auto pb-4 mb-4">
+            {[
+              {
+                id: "all",
+                name: "All",
+                icon: "🛍️",
+                color: "bg-gray-50 text-gray-600",
+              },
+              {
+                id: "essentials",
+                name: "Essentials",
+                icon: "🛒",
+                color: "bg-blue-50 text-blue-600",
+              },
+              {
+                id: "home-lifestyle",
+                name: "Home & Lifestyle",
+                icon: "🏠",
+                color: "bg-green-50 text-green-600",
+              },
+              {
+                id: "electronics",
+                name: "Electronics",
+                icon: "📱",
+                color: "bg-purple-50 text-purple-600",
+              },
+              {
+                id: "automobile",
+                name: "Automobile",
+                icon: "🚗",
+                color: "bg-gray-50 text-gray-600",
+              },
+              {
+                id: "hospitality",
+                name: "Hospitality",
+                icon: "🏨",
+                color: "bg-orange-50 text-orange-600",
+              },
+              {
+                id: "fitness-sports",
+                name: "Fitness & Sports",
+                icon: "🏋️",
+                color: "bg-red-50 text-red-600",
+              },
+            ].map((category) => (
+              <div
                 key={category.id}
-                variant={
-                  selectedCategory === category.id ? "default" : "outline"
-                }
-                size="sm"
                 onClick={() => setSelectedCategory(category.id)}
-                className="capitalize"
+                className={`flex-shrink-0 w-32 p-4 rounded-lg cursor-pointer hover:scale-105 transition-transform border ${
+                  selectedCategory === category.id
+                    ? "border-primary bg-primary/10"
+                    : category.color
+                }`}
               >
-                {category.name}
-              </Button>
+                <div className="text-center">
+                  <div className="text-2xl mb-2">{category.icon}</div>
+                  <p className="text-xs font-medium">{category.name}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
