@@ -433,9 +433,7 @@ export default function CartEnhanced() {
                         order.
                       </p>
                       <div className="flex items-center space-x-4 text-xs text-orange-600">
-                        <span>
-                          ✓ Compare prices across {allStores.length}+ stores
-                        </span>
+                        <span>✓ Compare prices across 8+ stores</span>
                         <span>✓ Switch to better deals instantly</span>
                         <span>✓ Save on delivery with nearby stores</span>
                       </div>
