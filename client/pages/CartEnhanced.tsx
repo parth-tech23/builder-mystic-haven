@@ -241,8 +241,7 @@ export default function CartEnhanced() {
   }, [fromCategory, fromStore]);
 
   const updateQuantity = (itemId: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      removeItem(itemId);
+    if (newQuantity < 1) {
       return;
     }
 
