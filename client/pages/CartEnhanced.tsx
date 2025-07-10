@@ -533,8 +533,9 @@ export default function CartEnhanced() {
                               </Button>
                             </div>
 
-                            <div className="space-y-2 mb-3">
-                              {sortedComparisons.map((comparison, index) => (
+                            {expandedItems.has(item.id) && (
+                              <div className="space-y-2">
+                                {sortedComparisons.map((comparison, index) => (
                                 <div
                                   key={comparison.storeName}
                                   className={`p-3 rounded-lg border ${
