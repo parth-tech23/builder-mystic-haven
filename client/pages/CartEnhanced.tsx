@@ -536,166 +536,84 @@ export default function CartEnhanced() {
                             {expandedItems.has(item.id) && (
                               <div className="space-y-2">
                                 {sortedComparisons.map((comparison, index) => (
-                                <div
-                                  key={comparison.storeName}
-                                  className={`p-3 rounded-lg border ${
-                                    comparison.storeName === item.storeName
-                                      ? "bg-primary/5 border-primary/20"
-                                      : index === 0
-                                        ? "bg-green-50 border-green-200"
-                                        : "bg-gray-50 border-gray-200"
-                                  }`}
-                                >
-                                  <div className="flex justify-between items-center">
-                                    <div className="flex-1">
-                                      <div className="flex items-center space-x-2 mb-1">
-                                        <span className="font-medium text-sm">
-                                          {comparison.storeName}
-                                        </span>
-                                        {index === 0 &&
-                                          comparison.storeName !==
+                                  <div
+                                    key={comparison.storeName}
+                                    className={`p-3 rounded-lg border ${
+                                      comparison.storeName === item.storeName
+                                        ? "bg-primary/5 border-primary/20"
+                                        : index === 0
+                                          ? "bg-green-50 border-green-200"
+                                          : "bg-gray-50 border-gray-200"
+                                    }`}
+                                  >
+                                    <div className="flex justify-between items-center">
+                                      <div className="flex-1">
+                                        <div className="flex items-center space-x-2 mb-1">
+                                          <span className="font-medium text-sm">
+                                            {comparison.storeName}
+                                          </span>
+                                          {index === 0 &&
+                                            comparison.storeName !==
+                                              item.storeName && (
+                                              <Badge className="bg-green-100 text-green-800 text-xs">
+                                                <TrendingDown className="h-3 w-3 mr-1" />
+                                                Best Price
+                                              </Badge>
+                                            )}
+                                          {comparison.storeName ===
                                             item.storeName && (
-                                            <Badge className="bg-green-100 text-green-800 text-xs">
-                                              <TrendingDown className="h-3 w-3 mr-1" />
-                                              Best Price
+                                            <Badge
+                                              variant="outline"
+                                              className="text-xs"
+                                            >
+                                              Current
                                             </Badge>
                                           )}
-                                        {comparison.storeName ===
+                                        </div>
+                                        <p className="text-xs text-gray-600">
+                                          📍 {comparison.storeLocation} •{" "}
+                                          {comparison.storeDistance}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                          Delivery: {comparison.deliveryTime}
+                                        </p>
+                                      </div>
+                                      <div className="flex items-center space-x-3">
+                                        <div className="text-right">
+                                          <p className="font-bold text-sm">
+                                            ���{comparison.price}
+                                          </p>
+                                          {comparison.originalPrice && (
+                                            <p className="text-xs text-gray-500 line-through">
+                                              ₹{comparison.originalPrice}
+                                            </p>
+                                          )}
+                                          {comparison.price < item.price && (
+                                            <p className="text-xs text-green-600 font-medium">
+                                              Save ₹
+                                              {item.price - comparison.price}
+                                            </p>
+                                          )}
+                                        </div>
+                                        {comparison.storeName !==
                                           item.storeName && (
-                                          <Badge
+                                          <Button
+                                            size="sm"
                                             variant="outline"
+                                            onClick={() =>
+                                              switchStore(item.id, comparison)
+                                            }
                                             className="text-xs"
                                           >
-                                            Current
-                                          </Badge>
+                                            Switch
+                                          </Button>
                                         )}
                                       </div>
-                                      <p className="text-xs text-gray-600">
-                                        📍 {comparison.storeLocation} •{" "}
-                                        {comparison.storeDistance}
-                                      </p>
-                                      <p className="text-xs text-gray-500">
-                                        Delivery: {comparison.deliveryTime}
-                                      </p>
-                                    </div>
-                                    <div className="flex items-center space-x-3">
-                                      <div className="text-right">
-                                        <p className="font-bold text-sm">
-                                          ���{comparison.price}
-                                        </p>
-                                        {comparison.originalPrice && (
-                                          <p className="text-xs text-gray-500 line-through">
-                                            ₹{comparison.originalPrice}
-                                          </p>
-                                        )}
-                                        {comparison.price < item.price && (
-                                          <p className="text-xs text-green-600 font-medium">
-                                            Save ₹
-                                            {item.price - comparison.price}
-                                          </p>
-                                        )}
-                                      </div>
-                                      {comparison.storeName !==
-                                        item.storeName && (
-                                        <Button
-                                          size="sm"
-                                          variant="outline"
-                                          onClick={() =>
-                                            switchStore(item.id, comparison)
-                                          }
-                                          className="text-xs"
-                                        >
-                                          Switch
-                                        </Button>
-                                      )}
                                     </div>
                                   </div>
-                                </div>
-                              ))}
+                                ))}
                               </div>
                             )}
-                                <div className="space-y-2">
-                                  <h4 className="text-sm font-semibold text-gray-700">
-                                    All Available Options:
-                                  </h4>
-                                  {sortedComparisons
-                                    .slice(2)
-                                    .map((comparison, index) => (
-                                      <div
-                                        key={comparison.storeName}
-                                        className={`p-3 rounded-lg border ${
-                                          comparison.storeName ===
-                                          item.storeName
-                                            ? "bg-primary/5 border-primary/20"
-                                            : "bg-gray-50 border-gray-200"
-                                        }`}
-                                      >
-                                        <div className="flex justify-between items-center">
-                                          <div className="flex-1">
-                                            <div className="flex items-center space-x-2 mb-1">
-                                              <span className="font-medium text-sm">
-                                                {comparison.storeName}
-                                              </span>
-                                              {index === 0 &&
-                                                comparison.storeName !==
-                                                  item.storeName && (
-                                                  <Badge className="bg-green-100 text-green-800 text-xs">
-                                                    <TrendingDown className="h-3 w-3 mr-1" />
-                                                    Best Price
-                                                  </Badge>
-                                                )}
-                                              {comparison.storeName ===
-                                                item.storeName && (
-                                                <Badge
-                                                  variant="outline"
-                                                  className="text-xs"
-                                                >
-                                                  Current
-                                                </Badge>
-                                              )}
-                                            </div>
-                                            <p className="text-xs text-gray-600">
-                                              📍 {comparison.storeLocation} •{" "}
-                                              {comparison.storeDistance}
-                                            </p>
-                                            <p className="text-xs text-gray-500">
-                                              Delivery:{" "}
-                                              {comparison.deliveryTime}
-                                            </p>
-                                          </div>
-                                          <div className="flex items-center space-x-3">
-                                            <div className="text-right">
-                                              <p className="font-bold text-sm">
-                                                ₹{comparison.price}
-                                              </p>
-                                              {comparison.originalPrice && (
-                                                <p className="text-xs text-gray-500 line-through">
-                                                  ₹{comparison.originalPrice}
-                                                </p>
-                                              )}
-                                            </div>
-                                            {comparison.storeName !==
-                                              item.storeName && (
-                                              <Button
-                                                size="sm"
-                                                variant="outline"
-                                                onClick={() =>
-                                                  switchStore(
-                                                    item.id,
-                                                    comparison,
-                                                  )
-                                                }
-                                                className="text-xs"
-                                              >
-                                                Switch
-                                              </Button>
-                                            )}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    ))}
-                                </div>
-                              )}
                           </div>
                         )}
                       </div>
