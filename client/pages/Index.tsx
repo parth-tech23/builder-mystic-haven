@@ -252,13 +252,70 @@ export default function Index() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Category Carousel */}
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Browse by Category
+          </h3>
+          <div className="flex space-x-4 overflow-x-auto pb-4">
+            {[
+              {
+                id: "essentials",
+                name: "Essentials",
+                icon: "🛒",
+                color: "bg-blue-50 text-blue-600",
+              },
+              {
+                id: "home-lifestyle",
+                name: "Home & Lifestyle",
+                icon: "🏠",
+                color: "bg-green-50 text-green-600",
+              },
+              {
+                id: "electronics",
+                name: "Electronics",
+                icon: "📱",
+                color: "bg-purple-50 text-purple-600",
+              },
+              {
+                id: "automobile",
+                name: "Automobile",
+                icon: "🚗",
+                color: "bg-gray-50 text-gray-600",
+              },
+              {
+                id: "hospitality",
+                name: "Hospitality",
+                icon: "🏨",
+                color: "bg-orange-50 text-orange-600",
+              },
+              {
+                id: "fitness-sports",
+                name: "Fitness & Sports",
+                icon: "🏋️",
+                color: "bg-red-50 text-red-600",
+              },
+            ].map((category) => (
+              <div
+                key={category.id}
+                className={`flex-shrink-0 w-32 p-4 rounded-lg cursor-pointer hover:scale-105 transition-transform ${category.color} border`}
+              >
+                <div className="text-center">
+                  <div className="text-2xl mb-2">{category.icon}</div>
+                  <p className="text-xs font-medium">{category.name}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back!
+            Choose Your Store
           </h2>
           <p className="text-gray-600">
-            Fresh groceries delivered to your doorstep
+            Select a store to browse products and compare prices
           </p>
         </div>
 
