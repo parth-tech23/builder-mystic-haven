@@ -47,6 +47,8 @@ interface StoreInfo {
   type: string;
   discount: string;
   categories: string[];
+  deliveryCharge: number;
+  freeDeliveryAbove?: number;
 }
 
 const storeData: { [key: string]: StoreInfo } = {
