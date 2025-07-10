@@ -64,6 +64,8 @@ const storeData: { [key: string]: StoreInfo } = {
     type: "Quick Commerce",
     discount: "15% off on first order",
     categories: ["food", "health"],
+    deliveryCharge: 25,
+    freeDeliveryAbove: 199,
   },
   zepto: {
     name: "zepto",
@@ -75,6 +77,7 @@ const storeData: { [key: string]: StoreInfo } = {
     type: "Quick Commerce",
     discount: "Free delivery",
     categories: ["food", "health"],
+    deliveryCharge: 0,
   },
   "reliance-fresh": {
     name: "reliance-fresh",
@@ -86,6 +89,8 @@ const storeData: { [key: string]: StoreInfo } = {
     type: "Supermarket",
     discount: "Up to 20% off",
     categories: ["food", "home"],
+    deliveryCharge: 49,
+    freeDeliveryAbove: 500,
   },
   dmart: {
     name: "dmart",
@@ -97,6 +102,8 @@ const storeData: { [key: string]: StoreInfo } = {
     type: "Hypermarket",
     discount: "Best prices",
     categories: ["food", "home", "clothing"],
+    deliveryCharge: 39,
+    freeDeliveryAbove: 999,
   },
   croma: {
     name: "croma",
@@ -108,6 +115,8 @@ const storeData: { [key: string]: StoreInfo } = {
     type: "Electronics Store",
     discount: "Great deals on electronics",
     categories: ["electronics", "home"],
+    deliveryCharge: 99,
+    freeDeliveryAbove: 2999,
   },
 };
 
@@ -339,7 +348,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "bananas-blinkit",
       name: "Fresh Bananas 1kg",
-      image: "🍌",
+      image: "���",
       category: "essentials",
       price: 55,
       originalPrice: 60,
