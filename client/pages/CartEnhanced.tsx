@@ -529,9 +529,7 @@ export default function CartEnhanced() {
                                 onClick={() => toggleExpanded(item.id)}
                                 className="text-xs"
                               >
-                                {expandedItems.has(item.id)
-                                  ? "Hide"
-                                  : "Show All"}
+                                {expandedItems.has(item.id) ? "Hide" : "Show"}
                               </Button>
                             </div>
 
