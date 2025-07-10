@@ -6,9 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import ReferralShare from "@/components/ReferralShare";
 
 export default function Index() {
-  // Mock user location - Ahmedabad
-  const userLocation = "Ahmedabad";
-
   const allStores = [
     {
       name: "Blinkit",
