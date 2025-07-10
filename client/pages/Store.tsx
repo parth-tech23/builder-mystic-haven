@@ -1568,6 +1568,14 @@ export default function Store() {
     if (name.includes("headphones") || name.includes("earbuds"))
       return "wireless-headphones";
     if (name.includes("bedsheet")) return "cotton-bedsheet";
+    if (name.includes("banana")) return "bananas";
+    if (name.includes("egg")) return "eggs";
+    if (name.includes("coffee")) return "coffee";
+    if (name.includes("chicken")) return "chicken";
+    if (name.includes("potato")) return "potatoes";
+    if (name.includes("rice")) return "rice";
+    if (name.includes("dal") || name.includes("lentil")) return "dal";
+    if (name.includes("oil")) return "oil";
     return name.replace(/\s+/g, "-");
   };
 
