@@ -732,7 +732,8 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
 export default function Store() {
   const { storeId } = useParams();
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedCategory, setSelectedCategory] =
+    useState<string>("essentials");
 
   const store = storeData[storeId || ""];
   const products = storeProducts[storeId || ""] || [];
