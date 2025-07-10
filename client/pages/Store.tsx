@@ -957,9 +957,35 @@ export default function Store() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] =
     useState<string>("essentials");
+  const [expandedPrices, setExpandedPrices] = useState<Set<string>>(new Set());
 
   const store = storeData[storeId || ""];
   const products = storeProducts[storeId || ""] || [];
+
+  // Helper function to get product comparison key
+  const getProductKey = (productName: string) => {
+    const name = productName.toLowerCase();
+    if (name.includes("milk")) return "milk-1l";
+    if (name.includes("bread")) return "bread";
+    if (name.includes("samsung") && name.includes("galaxy"))
+      return "samsung-galaxy-phone";
+    if (name.includes("apple") && name.includes("red")) return "red-apples";
+    if (name.includes("apples")) return "red-apples";
+    if (name.includes("headphones") || name.includes("earbuds"))
+      return "wireless-headphones";
+    if (name.includes("bedsheet")) return "cotton-bedsheet";
+    return name.replace(/\s+/g, "-");
+  };
+
+  const togglePriceComparison = (productId: string) => {
+    const newExpanded = new Set(expandedPrices);
+    if (expandedPrices.has(productId)) {
+      newExpanded.delete(productId);
+    } else {
+      newExpanded.add(productId);
+    }
+    setExpandedPrices(newExpanded);
+  };
 
   if (!store) {
     return (
@@ -1096,7 +1122,7 @@ export default function Store() {
               {
                 id: "essentials",
                 name: "Essentials",
-                icon: "🛒",
+                icon: "����",
                 color: "bg-blue-50 text-blue-600",
               },
               {
