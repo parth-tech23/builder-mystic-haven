@@ -12,7 +12,7 @@ import SubCategory from "./pages/SubCategory";
 import Category from "./pages/Category";
 import Store from "./pages/Store";
 import Profile from "./pages/Profile";
-import Cart from "./pages/Cart";
+import CartEnhanced from "./pages/CartEnhanced";
 import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import DeliveryTracking from "./pages/DeliveryTracking";
@@ -38,7 +38,7 @@ const App = () => (
           />
           <Route path="/store/:storeId" element={<Store />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<CartEnhanced />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/delivery-tracking" element={<DeliveryTracking />} />
