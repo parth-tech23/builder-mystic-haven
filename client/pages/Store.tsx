@@ -534,7 +534,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "powerbank-blinkit",
       name: "Power Bank 10000mAh",
-      image: "🔋",
+      image: "����",
       category: "electronics",
       price: 899,
       originalPrice: 1199,
@@ -1734,7 +1734,7 @@ export default function Store() {
               {
                 id: "automobile",
                 name: "Automobile",
-                icon: "🚗",
+                icon: "��",
                 color: "bg-gray-50 text-gray-600",
               },
               {
@@ -1897,6 +1897,23 @@ export default function Store() {
                                       <div className="text-gray-600">
                                         {comparison.storeDistance} •{" "}
                                         {comparison.deliveryTime}
+                                      </div>
+                                      <div className="text-gray-500 text-xs">
+                                        {comparison.deliveryCharge > 0 ? (
+                                          <>
+                                            Delivery: ₹
+                                            {comparison.deliveryCharge}
+                                            {comparison.freeDeliveryAbove && (
+                                              <span>
+                                                {" "}
+                                                (Free above ₹
+                                                {comparison.freeDeliveryAbove})
+                                              </span>
+                                            )}
+                                          </>
+                                        ) : (
+                                          "Free Delivery"
+                                        )}
                                       </div>
                                     </div>
                                     <div className="text-right">
