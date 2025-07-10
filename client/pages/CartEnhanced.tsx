@@ -46,6 +46,15 @@ interface StoreComparison {
 const productComparisons: { [key: string]: StoreComparison[] } = {
   "milk-1l": [
     {
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      price: 58,
+      rating: 4.6,
+      deliveryTime: "25-30 mins",
+      availability: "in-stock",
+    },
+    {
       storeName: "Zepto",
       storeLocation: "Satellite, Ahmedabad",
       storeDistance: "2.1 km",
@@ -77,16 +86,25 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       availability: "in-stock",
     },
     {
-      storeName: "DMart",
-      storeLocation: "Bopal, Ahmedabad",
-      storeDistance: "4.2 km",
-      price: 58,
+      storeName: "Swiggy Instamart",
+      storeLocation: "Prahlad Nagar, Ahmedabad",
+      storeDistance: "2.8 km",
+      price: 61,
       rating: 4.6,
-      deliveryTime: "25-30 mins",
+      deliveryTime: "15-25 mins",
       availability: "in-stock",
     },
   ],
   bread: [
+    {
+      storeName: "Reliance Fresh",
+      storeLocation: "CG Road, Ahmedabad",
+      storeDistance: "3.5 km",
+      price: 38,
+      rating: 4.5,
+      deliveryTime: "20-25 mins",
+      availability: "in-stock",
+    },
     {
       storeName: "Blinkit",
       storeLocation: "Vastrapur, Ahmedabad",
@@ -106,12 +124,89 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       availability: "in-stock",
     },
     {
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      price: 40,
+      rating: 4.4,
+      deliveryTime: "25-30 mins",
+      availability: "in-stock",
+    },
+  ],
+  "samsung-galaxy-phone": [
+    {
+      storeName: "Croma",
+      storeLocation: "Himalaya Mall, Ahmedabad",
+      storeDistance: "6.1 km",
+      price: 15499,
+      originalPrice: 17999,
+      discount: "14% off",
+      rating: 4.5,
+      deliveryTime: "40-50 mins",
+      availability: "in-stock",
+    },
+    {
+      storeName: "Blinkit",
+      storeLocation: "Vastrapur, Ahmedabad",
+      storeDistance: "1.2 km",
+      price: 15999,
+      originalPrice: 17999,
+      discount: "11% off",
+      rating: 4.6,
+      deliveryTime: "8-12 mins",
+      availability: "in-stock",
+    },
+    {
+      storeName: "Flipkart Quick",
+      storeLocation: "Science City, Ahmedabad",
+      storeDistance: "5.5 km",
+      price: 15699,
+      originalPrice: 17999,
+      discount: "13% off",
+      rating: 4.4,
+      deliveryTime: "20-30 mins",
+      availability: "in-stock",
+    },
+  ],
+  "red-apples": [
+    {
+      storeName: "Zepto",
+      storeLocation: "Satellite, Ahmedabad",
+      storeDistance: "2.1 km",
+      price: 168,
+      rating: 4.9,
+      deliveryTime: "10-15 mins",
+      availability: "in-stock",
+    },
+    {
+      storeName: "Blinkit",
+      storeLocation: "Vastrapur, Ahmedabad",
+      storeDistance: "1.2 km",
+      price: 170,
+      originalPrice: 185,
+      discount: "8% off",
+      rating: 4.9,
+      deliveryTime: "8-12 mins",
+      availability: "in-stock",
+    },
+    {
       storeName: "Reliance Fresh",
       storeLocation: "CG Road, Ahmedabad",
       storeDistance: "3.5 km",
-      price: 38,
-      rating: 4.5,
+      price: 180,
+      originalPrice: 200,
+      discount: "10% off",
+      rating: 4.6,
       deliveryTime: "20-25 mins",
+      availability: "in-stock",
+    },
+    {
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      price: 165,
+      rating: 4.5,
+      deliveryTime: "25-30 mins",
       availability: "in-stock",
     },
   ],
@@ -123,6 +218,7 @@ export default function CartEnhanced() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [showPaymentOptions, setShowPaymentOptions] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
+  const [showComparisons, setShowComparisons] = useState(true);
 
   const fromCategory = searchParams.get("from") === "category";
   const fromStore = searchParams.get("from") === "store";
@@ -136,6 +232,11 @@ export default function CartEnhanced() {
 
     if (fromCategory || fromStore) {
       setShowPaymentOptions(true);
+      // Auto-expand price comparisons for newly added items
+      if (savedCart.length > 0) {
+        const allItemIds = new Set(savedCart.map((item: CartItem) => item.id));
+        setExpandedItems(allItemIds);
+      }
     }
   }, [fromCategory, fromStore]);
 
@@ -191,9 +292,14 @@ export default function CartEnhanced() {
   };
 
   const getProductKey = (productName: string) => {
-    if (productName.toLowerCase().includes("milk")) return "milk-1l";
-    if (productName.toLowerCase().includes("bread")) return "bread";
-    return productName.toLowerCase().replace(/\s+/g, "-");
+    const name = productName.toLowerCase();
+    if (name.includes("milk")) return "milk-1l";
+    if (name.includes("bread")) return "bread";
+    if (name.includes("samsung") && name.includes("galaxy"))
+      return "samsung-galaxy-phone";
+    if (name.includes("apple") && name.includes("red")) return "red-apples";
+    if (name.includes("apples")) return "red-apples";
+    return name.replace(/\s+/g, "-");
   };
 
   const getSubtotal = () => {
@@ -410,28 +516,36 @@ export default function CartEnhanced() {
 
                         {comparisons.length > 0 && (
                           <div className="border-t pt-4">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => toggleExpanded(item.id)}
-                              className="mb-3"
-                            >
-                              {expandedItems.has(item.id) ? "Hide" : "Show"}{" "}
-                              Price Comparison ({comparisons.length} stores)
-                            </Button>
+                            <div className="flex justify-between items-center mb-3">
+                              <h4 className="text-sm font-semibold text-gray-700 flex items-center">
+                                💰 Price Comparison ({comparisons.length}{" "}
+                                stores)
+                              </h4>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => toggleExpanded(item.id)}
+                                className="text-xs"
+                              >
+                                {expandedItems.has(item.id)
+                                  ? "Hide"
+                                  : "Show All"}
+                              </Button>
+                            </div>
 
-                            {expandedItems.has(item.id) && (
-                              <div className="space-y-3">
-                                <h4 className="text-sm font-semibold text-gray-700">
-                                  Available at other stores:
-                                </h4>
-                                {sortedComparisons.map((comparison, index) => (
+                            {/* Always show top 2 comparisons */}
+                            <div className="space-y-2 mb-3">
+                              {sortedComparisons
+                                .slice(0, 2)
+                                .map((comparison, index) => (
                                   <div
                                     key={comparison.storeName}
                                     className={`p-3 rounded-lg border ${
                                       comparison.storeName === item.storeName
                                         ? "bg-primary/5 border-primary/20"
-                                        : "bg-gray-50 border-gray-200"
+                                        : index === 0
+                                          ? "bg-green-50 border-green-200"
+                                          : "bg-gray-50 border-gray-200"
                                     }`}
                                   >
                                     <div className="flex justify-between items-center">
@@ -476,6 +590,12 @@ export default function CartEnhanced() {
                                               ₹{comparison.originalPrice}
                                             </p>
                                           )}
+                                          {comparison.price < item.price && (
+                                            <p className="text-xs text-green-600 font-medium">
+                                              Save ₹
+                                              {item.price - comparison.price}
+                                            </p>
+                                          )}
                                         </div>
                                         {comparison.storeName !==
                                           item.storeName && (
@@ -494,8 +614,92 @@ export default function CartEnhanced() {
                                     </div>
                                   </div>
                                 ))}
-                              </div>
-                            )}
+                            </div>
+
+                            {expandedItems.has(item.id) &&
+                              sortedComparisons.length > 2 && (
+                                <div className="space-y-2">
+                                  <h4 className="text-sm font-semibold text-gray-700">
+                                    All Available Options:
+                                  </h4>
+                                  {sortedComparisons
+                                    .slice(2)
+                                    .map((comparison, index) => (
+                                      <div
+                                        key={comparison.storeName}
+                                        className={`p-3 rounded-lg border ${
+                                          comparison.storeName ===
+                                          item.storeName
+                                            ? "bg-primary/5 border-primary/20"
+                                            : "bg-gray-50 border-gray-200"
+                                        }`}
+                                      >
+                                        <div className="flex justify-between items-center">
+                                          <div className="flex-1">
+                                            <div className="flex items-center space-x-2 mb-1">
+                                              <span className="font-medium text-sm">
+                                                {comparison.storeName}
+                                              </span>
+                                              {index === 0 &&
+                                                comparison.storeName !==
+                                                  item.storeName && (
+                                                  <Badge className="bg-green-100 text-green-800 text-xs">
+                                                    <TrendingDown className="h-3 w-3 mr-1" />
+                                                    Best Price
+                                                  </Badge>
+                                                )}
+                                              {comparison.storeName ===
+                                                item.storeName && (
+                                                <Badge
+                                                  variant="outline"
+                                                  className="text-xs"
+                                                >
+                                                  Current
+                                                </Badge>
+                                              )}
+                                            </div>
+                                            <p className="text-xs text-gray-600">
+                                              📍 {comparison.storeLocation} •{" "}
+                                              {comparison.storeDistance}
+                                            </p>
+                                            <p className="text-xs text-gray-500">
+                                              Delivery:{" "}
+                                              {comparison.deliveryTime}
+                                            </p>
+                                          </div>
+                                          <div className="flex items-center space-x-3">
+                                            <div className="text-right">
+                                              <p className="font-bold text-sm">
+                                                ₹{comparison.price}
+                                              </p>
+                                              {comparison.originalPrice && (
+                                                <p className="text-xs text-gray-500 line-through">
+                                                  ₹{comparison.originalPrice}
+                                                </p>
+                                              )}
+                                            </div>
+                                            {comparison.storeName !==
+                                              item.storeName && (
+                                              <Button
+                                                size="sm"
+                                                variant="outline"
+                                                onClick={() =>
+                                                  switchStore(
+                                                    item.id,
+                                                    comparison,
+                                                  )
+                                                }
+                                                className="text-xs"
+                                              >
+                                                Switch
+                                              </Button>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                </div>
+                              )}
                           </div>
                         )}
                       </div>
