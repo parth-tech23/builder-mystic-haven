@@ -120,7 +120,7 @@ const storeData: { [key: string]: StoreInfo } = {
   },
 };
 
-// Price comparison data across stores
+// Price comparison data across stores with delivery charges
 const productComparisons: { [key: string]: StoreComparison[] } = {
   "milk-1l": [
     {
@@ -217,6 +217,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.5,
       deliveryTime: "40-50 mins",
       availability: "in-stock",
+      deliveryCharge: 99,
+      freeDeliveryAbove: 2999,
     },
     {
       storeName: "Blinkit",
@@ -228,6 +230,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.6,
       deliveryTime: "8-12 mins",
       availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
     },
   ],
   "red-apples": [
@@ -239,6 +243,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.5,
       deliveryTime: "25-30 mins",
       availability: "in-stock",
+      deliveryCharge: 39,
+      freeDeliveryAbove: 999,
     },
     {
       storeName: "Zepto",
@@ -248,6 +254,7 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.9,
       deliveryTime: "10-15 mins",
       availability: "in-stock",
+      deliveryCharge: 0,
     },
     {
       storeName: "Blinkit",
@@ -259,6 +266,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.9,
       deliveryTime: "8-12 mins",
       availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
     },
     {
       storeName: "Reliance Fresh",
@@ -270,6 +279,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.6,
       deliveryTime: "20-25 mins",
       availability: "in-stock",
+      deliveryCharge: 49,
+      freeDeliveryAbove: 500,
     },
   ],
   "wireless-headphones": [
@@ -283,6 +294,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.6,
       deliveryTime: "40-50 mins",
       availability: "in-stock",
+      deliveryCharge: 99,
+      freeDeliveryAbove: 2999,
     },
     {
       storeName: "Blinkit",
@@ -294,6 +307,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.5,
       deliveryTime: "8-12 mins",
       availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
     },
   ],
   "cotton-bedsheet": [
@@ -307,6 +322,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.5,
       deliveryTime: "8-12 mins",
       availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
     },
     {
       storeName: "Zepto",
@@ -318,6 +335,7 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.5,
       deliveryTime: "10-15 mins",
       availability: "in-stock",
+      deliveryCharge: 0,
     },
     {
       storeName: "Reliance Fresh",
@@ -329,6 +347,114 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.4,
       deliveryTime: "20-25 mins",
       availability: "in-stock",
+      deliveryCharge: 49,
+      freeDeliveryAbove: 500,
+    },
+  ],
+  // Add comparisons for more products
+  bananas: [
+    {
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      price: 50,
+      rating: 4.4,
+      deliveryTime: "25-30 mins",
+      availability: "in-stock",
+      deliveryCharge: 39,
+      freeDeliveryAbove: 999,
+    },
+    {
+      storeName: "Blinkit",
+      storeLocation: "Vastrapur, Ahmedabad",
+      storeDistance: "1.2 km",
+      price: 55,
+      originalPrice: 60,
+      discount: "8% off",
+      rating: 4.8,
+      deliveryTime: "8-12 mins",
+      availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
+    },
+    {
+      storeName: "Zepto",
+      storeLocation: "Satellite, Ahmedabad",
+      storeDistance: "2.1 km",
+      price: 52,
+      rating: 4.7,
+      deliveryTime: "10-15 mins",
+      availability: "in-stock",
+      deliveryCharge: 0,
+    },
+  ],
+  eggs: [
+    {
+      storeName: "Zepto",
+      storeLocation: "Satellite, Ahmedabad",
+      storeDistance: "2.1 km",
+      price: 84,
+      rating: 4.7,
+      deliveryTime: "10-15 mins",
+      availability: "in-stock",
+      deliveryCharge: 0,
+    },
+    {
+      storeName: "Reliance Fresh",
+      storeLocation: "CG Road, Ahmedabad",
+      storeDistance: "3.5 km",
+      price: 86,
+      rating: 4.5,
+      deliveryTime: "20-25 mins",
+      availability: "in-stock",
+      deliveryCharge: 49,
+      freeDeliveryAbove: 500,
+    },
+    {
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      price: 82,
+      rating: 4.6,
+      deliveryTime: "25-30 mins",
+      availability: "in-stock",
+      deliveryCharge: 39,
+      freeDeliveryAbove: 999,
+    },
+  ],
+  coffee: [
+    {
+      storeName: "Blinkit",
+      storeLocation: "Vastrapur, Ahmedabad",
+      storeDistance: "1.2 km",
+      price: 599,
+      rating: 4.7,
+      deliveryTime: "8-12 mins",
+      availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
+    },
+    {
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      price: 579,
+      rating: 4.5,
+      deliveryTime: "25-30 mins",
+      availability: "in-stock",
+      deliveryCharge: 39,
+      freeDeliveryAbove: 999,
+    },
+    {
+      storeName: "Reliance Fresh",
+      storeLocation: "CG Road, Ahmedabad",
+      storeDistance: "3.5 km",
+      price: 589,
+      rating: 4.6,
+      deliveryTime: "20-25 mins",
+      availability: "in-stock",
+      deliveryCharge: 49,
+      freeDeliveryAbove: 500,
     },
   ],
 };
@@ -525,7 +651,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "chicken-blinkit",
       name: "Fresh Chicken 1kg",
-      image: "🍗",
+      image: "���",
       category: "essentials",
       price: 280,
       rating: 4.6,
@@ -1332,7 +1458,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "washing-machine-croma",
       name: "Automatic Washing Machine",
-      image: "🌀",
+      image: "����",
       category: "home-lifestyle",
       price: 18999,
       originalPrice: 24999,
