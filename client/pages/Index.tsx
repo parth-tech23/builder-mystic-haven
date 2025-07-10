@@ -128,13 +128,8 @@ export default function Index() {
     },
   ];
 
-  // Filter and sort stores based on user location and distance
-  const featuredStores = allStores
-    .filter((store) =>
-      store.locations.some((location) => userLocation.includes(location)),
-    )
-    .sort((a, b) => parseFloat(a.distance) - parseFloat(b.distance)) // Sort by distance
-    .slice(0, 6); // Show top 6 nearest stores
+  // Show all available stores
+  const availableStores = allStores;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -224,10 +219,10 @@ export default function Index() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Choose Your Store
+            Available Stores
           </h2>
           <p className="text-gray-600">
-            Select a store to browse products and compare prices
+            Choose from all partner stores on Sharva Mart
           </p>
         </div>
 
@@ -274,66 +269,10 @@ export default function Index() {
           </CardContent>
         </Card>
 
-        {/* Nearest Stores */}
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">
-            Nearest Stores
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {featuredStores.map((store, index) => (
-              <Card
-                key={index}
-                className="hover:shadow-md transition-shadow cursor-pointer"
-              >
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <div>
-                      <h4 className="font-semibold text-gray-900">
-                        {store.name}
-                      </h4>
-                      <p className="text-xs text-gray-500">{store.type}</p>
-                      <p className="text-xs text-blue-600">
-                        {store.storeLocation}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <Badge variant="secondary" className="text-xs mb-1">
-                        {store.discount}
-                      </Badge>
-                      <p className="text-xs text-green-600 font-medium">
-                        {store.distance}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between text-sm text-gray-600 mb-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="flex items-center space-x-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span>{store.rating}</span>
-                      </div>
-                      <span>{store.deliveryTime}</span>
-                    </div>
-                  </div>
-                  <Button size="sm" className="w-full" asChild>
-                    <Link
-                      to={`/store/${store.name.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      Shop at {store.name}
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
         {/* All Stores */}
         <div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            All Available Stores
-          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {allStores.map((store) => (
+            {availableStores.map((store) => (
               <Link
                 key={store.name}
                 to={`/store/${store.name.toLowerCase().replace(/\s+/g, "-")}`}
