@@ -35,6 +35,8 @@ interface StoreComparison {
   rating: number;
   deliveryTime: string;
   availability: string;
+  deliveryCharge: number;
+  freeDeliveryAbove?: number;
 }
 
 interface StoreInfo {
