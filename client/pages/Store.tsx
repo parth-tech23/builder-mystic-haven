@@ -871,12 +871,6 @@ export default function Store() {
           <div className="flex space-x-4 overflow-x-auto pb-4 mb-4">
             {[
               {
-                id: "all",
-                name: "All",
-                icon: "🛍️",
-                color: "bg-gray-50 text-gray-600",
-              },
-              {
                 id: "essentials",
                 name: "Essentials",
                 icon: "🛒",
