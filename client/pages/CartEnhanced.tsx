@@ -390,31 +390,61 @@ export default function CartEnhanced() {
 
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {showPaymentOptions && (
-          <Card className="mb-6 bg-gradient-to-r from-primary to-primary/80 border-0">
-            <CardContent className="p-6">
-              <div className="text-center text-white">
-                <h3 className="text-lg font-semibold mb-3">
-                  Item Added to Cart!
-                </h3>
-                <div className="flex gap-4 justify-center">
-                  <Button
-                    variant="secondary"
-                    onClick={continueShopping}
-                    className="min-w-[140px]"
-                  >
-                    Continue Shopping
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={proceedToPayment}
-                    className="min-w-[140px] bg-white/10 border-white/20 text-white hover:bg-white/20"
-                  >
-                    Proceed to Payment
-                  </Button>
+          <>
+            <Card className="mb-4 bg-gradient-to-r from-primary to-primary/80 border-0">
+              <CardContent className="p-6">
+                <div className="text-center text-white">
+                  <h3 className="text-lg font-semibold mb-3">
+                    Item Added to Cart!
+                  </h3>
+                  <div className="flex gap-4 justify-center">
+                    <Button
+                      variant="secondary"
+                      onClick={continueShopping}
+                      className="min-w-[140px]"
+                    >
+                      Continue Shopping
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={proceedToPayment}
+                      className="min-w-[140px] bg-white/10 border-white/20 text-white hover:bg-white/20"
+                    >
+                      Proceed to Payment
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+
+            {/* Price Comparison Alert */}
+            {cartItems.length > 0 && (
+              <Card className="mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-orange-200">
+                <CardContent className="p-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="text-2xl">💰</div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-orange-800 mb-2">
+                        Price Comparison Available!
+                      </h4>
+                      <p className="text-sm text-orange-700 mb-3">
+                        We found the same products at different prices across
+                        stores. Check below to potentially save money on your
+                        order.
+                      </p>
+                      <div className="flex items-center space-x-4 text-xs text-orange-600">
+                        <span>
+                          ✓ Compare prices across {allStores.length}+ stores
+                        </span>
+                        <span>✓ Switch to better deals instantly</span>
+                        <span>✓ Save on delivery with nearby stores</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
