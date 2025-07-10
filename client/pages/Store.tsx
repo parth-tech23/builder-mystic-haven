@@ -1848,6 +1848,15 @@ export default function Store() {
                           <div className="text-xs text-orange-600 mt-1">
                             Save ₹{product.price - bestPrice.price} •{" "}
                             {bestPrice.storeDistance}
+                            {bestPrice.deliveryCharge > 0 && (
+                              <span>
+                                {" "}
+                                • Delivery: ₹{bestPrice.deliveryCharge}
+                              </span>
+                            )}
+                            {bestPrice.deliveryCharge === 0 && (
+                              <span> • Free Delivery</span>
+                            )}
                           </div>
                         </div>
                       )}
