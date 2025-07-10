@@ -796,10 +796,9 @@ export default function Store() {
 
   const categories = allCategories;
 
-  const filteredProducts =
-    selectedCategory === "all"
-      ? products
-      : products.filter((p) => p.category === selectedCategory);
+  const filteredProducts = products.filter(
+    (p) => p.category === selectedCategory,
+  );
 
   return (
     <div className="min-h-screen bg-gray-50">
