@@ -1122,7 +1122,7 @@ export default function Store() {
               {
                 id: "essentials",
                 name: "Essentials",
-                icon: "����",
+                icon: "🛒",
                 color: "bg-blue-50 text-blue-600",
               },
               {
@@ -1187,75 +1187,172 @@ export default function Store() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <Card
-                key={product.id}
-                className="hover:shadow-lg transition-shadow"
-              >
-                <CardContent className="p-4">
-                  <div className="text-center mb-4">
-                    <div className="text-4xl mb-2">{product.image}</div>
-                    <h4 className="font-semibold text-gray-900 mb-1">
-                      {product.name}
-                    </h4>
-                    <Badge variant="secondary" className="text-xs">
-                      {product.category}
-                    </Badge>
-                  </div>
+            {filteredProducts.map((product) => {
+              const productKey = getProductKey(product.name);
+              const comparisons = productComparisons[productKey] || [];
+              const sortedComparisons = comparisons
+                .sort((a, b) => a.price - b.price)
+                .filter((comp) => comp.storeName !== store.displayName);
+              const bestPrice =
+                sortedComparisons.length > 0 ? sortedComparisons[0] : null;
+              const currentIsLowest =
+                !bestPrice || product.price <= bestPrice.price;
 
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-lg font-bold text-gray-900">
-                          ₹{product.price}
-                        </span>
-                        {product.originalPrice && (
-                          <>
-                            <span className="text-sm text-gray-500 line-through">
-                              ₹{product.originalPrice}
-                            </span>
-                            {product.discount && (
-                              <Badge variant="secondary" className="text-xs">
-                                {product.discount}
-                              </Badge>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between text-sm text-gray-600">
-                      <div className="flex items-center space-x-1">
-                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span>{product.rating}</span>
-                        <span>({product.reviews})</span>
-                      </div>
-                      <Badge
-                        variant={
-                          product.availability === "in-stock"
-                            ? "default"
-                            : product.availability === "low-stock"
-                              ? "secondary"
-                              : "destructive"
-                        }
-                        className="text-xs"
-                      >
-                        {product.availability.replace("-", " ")}
+              return (
+                <Card
+                  key={product.id}
+                  className="hover:shadow-lg transition-shadow"
+                >
+                  <CardContent className="p-4">
+                    <div className="text-center mb-4">
+                      <div className="text-4xl mb-2">{product.image}</div>
+                      <h4 className="font-semibold text-gray-900 mb-1">
+                        {product.name}
+                      </h4>
+                      <Badge variant="secondary" className="text-xs">
+                        {product.category}
                       </Badge>
                     </div>
-                  </div>
 
-                  <Button
-                    className="w-full"
-                    onClick={() => addToCart(product)}
-                    disabled={product.availability === "out-of-stock"}
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add to Cart
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg font-bold text-gray-900">
+                            ₹{product.price}
+                          </span>
+                          {product.originalPrice && (
+                            <>
+                              <span className="text-sm text-gray-500 line-through">
+                                ₹{product.originalPrice}
+                              </span>
+                              {product.discount && (
+                                <Badge variant="secondary" className="text-xs">
+                                  {product.discount}
+                                </Badge>
+                              )}
+                            </>
+                          )}
+                        </div>
+                        {currentIsLowest && comparisons.length > 1 && (
+                          <Badge className="bg-green-100 text-green-800 text-xs">
+                            Best Price
+                          </Badge>
+                        )}
+                      </div>
+
+                      {/* Price comparison preview */}
+                      {bestPrice && !currentIsLowest && (
+                        <div className="bg-orange-50 border border-orange-200 rounded-lg p-2">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-orange-700">
+                              Lower price available:
+                            </span>
+                            <span className="font-semibold text-orange-800">
+                              ₹{bestPrice.price} at {bestPrice.storeName}
+                            </span>
+                          </div>
+                          <div className="text-xs text-orange-600 mt-1">
+                            Save ₹{product.price - bestPrice.price} •{" "}
+                            {bestPrice.storeDistance}
+                          </div>
+                        </div>
+                      )}
+
+                      {comparisons.length > 1 && (
+                        <button
+                          onClick={() => togglePriceComparison(product.id)}
+                          className="w-full text-xs text-blue-600 hover:text-blue-800 font-medium border border-blue-200 rounded py-1 hover:bg-blue-50 transition-colors"
+                        >
+                          {expandedPrices.has(product.id) ? "Hide" : "Show"}{" "}
+                          Price Comparison ({comparisons.length} stores)
+                        </button>
+                      )}
+
+                      {/* Expanded price comparison */}
+                      {expandedPrices.has(product.id) &&
+                        comparisons.length > 0 && (
+                          <div className="border-t pt-3 space-y-2">
+                            <h5 className="text-xs font-semibold text-gray-700">
+                              Compare Prices:
+                            </h5>
+                            {sortedComparisons
+                              .slice(0, 3)
+                              .map((comparison, index) => (
+                                <div
+                                  key={comparison.storeName}
+                                  className={`p-2 rounded border text-xs ${
+                                    index === 0
+                                      ? "bg-green-50 border-green-200"
+                                      : "bg-gray-50 border-gray-200"
+                                  }`}
+                                >
+                                  <div className="flex justify-between items-center">
+                                    <div>
+                                      <div className="font-medium">
+                                        {comparison.storeName}
+                                      </div>
+                                      <div className="text-gray-600">
+                                        {comparison.storeDistance} •{" "}
+                                        {comparison.deliveryTime}
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <div className="font-bold">
+                                        ₹{comparison.price}
+                                      </div>
+                                      {index === 0 &&
+                                        comparison.price < product.price && (
+                                          <div className="text-green-600">
+                                            Save ₹
+                                            {product.price - comparison.price}
+                                          </div>
+                                        )}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            {sortedComparisons.length > 3 && (
+                              <div className="text-xs text-gray-500 text-center">
+                                +{sortedComparisons.length - 3} more stores
+                                available
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                      <div className="flex items-center justify-between text-sm text-gray-600">
+                        <div className="flex items-center space-x-1">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          <span>{product.rating}</span>
+                          <span>({product.reviews})</span>
+                        </div>
+                        <Badge
+                          variant={
+                            product.availability === "in-stock"
+                              ? "default"
+                              : product.availability === "low-stock"
+                                ? "secondary"
+                                : "destructive"
+                          }
+                          className="text-xs"
+                        >
+                          {product.availability.replace("-", " ")}
+                        </Badge>
+                      </div>
+                    </div>
+
+                    <Button
+                      className="w-full"
+                      onClick={() => addToCart(product)}
+                      disabled={product.availability === "out-of-stock"}
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add to Cart
+                    </Button>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </main>
