@@ -495,6 +495,7 @@ export default function CartEnhanced() {
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity - 1)
                               }
+                              disabled={item.quantity <= 1}
                               className="h-8 w-8 p-0"
                             >
                               <Minus className="h-4 w-4" />
@@ -584,7 +585,7 @@ export default function CartEnhanced() {
                                       <div className="flex items-center space-x-3">
                                         <div className="text-right">
                                           <p className="font-bold text-sm">
-                                            ₹{comparison.price}
+                                            ���{comparison.price}
                                           </p>
                                           {comparison.originalPrice && (
                                             <p className="text-xs text-gray-500 line-through">
