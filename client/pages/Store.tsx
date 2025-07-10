@@ -180,6 +180,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.5,
       deliveryTime: "20-25 mins",
       availability: "in-stock",
+      deliveryCharge: 49,
+      freeDeliveryAbove: 500,
     },
     {
       storeName: "DMart",
@@ -189,6 +191,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.4,
       deliveryTime: "25-30 mins",
       availability: "in-stock",
+      deliveryCharge: 39,
+      freeDeliveryAbove: 999,
     },
     {
       storeName: "Blinkit",
@@ -198,6 +202,8 @@ const productComparisons: { [key: string]: StoreComparison[] } = {
       rating: 4.7,
       deliveryTime: "8-12 mins",
       availability: "in-stock",
+      deliveryCharge: 25,
+      freeDeliveryAbove: 199,
     },
   ],
   "samsung-galaxy-phone": [
