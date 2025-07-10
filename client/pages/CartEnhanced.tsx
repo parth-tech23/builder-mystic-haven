@@ -533,7 +533,6 @@ export default function CartEnhanced() {
                               </Button>
                             </div>
 
-                            {/* Always show top 2 comparisons */}
                             <div className="space-y-2 mb-3">
                               {sortedComparisons
                                 .slice(0, 2)
