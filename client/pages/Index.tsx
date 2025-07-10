@@ -415,39 +415,73 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Categories Grid */}
+        {/* All Stores */}
         <div>
           <h3 className="text-xl font-semibold text-gray-900 mb-6">
-            Shop by Category
+            All Available Stores
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {categories.map((category) => {
-              const IconComponent = category.icon;
-              return (
-                <Link
-                  key={category.id}
-                  to={`/categories/${category.id}`}
-                  className="block"
-                >
-                  <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer group hover:scale-105">
-                    <CardContent className="p-6 text-center">
-                      <div
-                        className={`w-16 h-16 mx-auto mb-4 rounded-full ${category.color} flex items-center justify-center group-hover:scale-110 transition-transform`}
-                      >
-                        <IconComponent className="h-8 w-8" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {allStores.map((store) => (
+              <Link
+                key={store.name}
+                to={`/store/${store.name.toLowerCase().replace(/\s+/g, "-")}`}
+                className="block"
+              >
+                <Card className="hover:shadow-lg transition-all duration-200 cursor-pointer group">
+                  <CardContent className="p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div>
+                        <h4 className="text-xl font-bold text-gray-900 mb-1">
+                          {store.name}
+                        </h4>
+                        <p className="text-sm text-gray-500 mb-1">
+                          {store.type}
+                        </p>
+                        <p className="text-sm text-blue-600">
+                          {store.storeLocation}
+                        </p>
                       </div>
-                      <h4 className="font-semibold text-gray-900 mb-1 text-sm">
-                        {category.name}
-                      </h4>
-                      <p className="text-xs text-gray-500">{category.items}</p>
-                      <p className="text-xs text-gray-400">
-                        {category.subcategories} categories
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              );
-            })}
+                      <div className="text-right">
+                        <Badge variant="secondary" className="text-xs mb-2">
+                          {store.discount}
+                        </Badge>
+                        <p className="text-sm text-green-600 font-bold">
+                          {store.distance}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <div className="flex items-center space-x-1">
+                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                          <span className="font-medium">{store.rating}</span>
+                        </div>
+                        <span className="text-sm text-gray-600">
+                          {store.deliveryTime}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {store.categories.map((cat) => (
+                        <Badge
+                          key={cat}
+                          variant="outline"
+                          className="text-xs capitalize"
+                        >
+                          {cat}
+                        </Badge>
+                      ))}
+                    </div>
+
+                    <Button className="w-full group-hover:bg-primary/90">
+                      Shop at {store.name}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
           </div>
         </div>
       </main>
