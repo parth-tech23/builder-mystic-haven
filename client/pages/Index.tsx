@@ -1,18 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  ShoppingCart,
-  User,
-  Gift,
-  Star,
-  UtensilsCrossed,
-  Shirt,
-  Smartphone,
-  Home,
-  Gamepad2,
-  Car,
-  Heart,
-  Book,
-} from "lucide-react";
+import { ShoppingCart, User, Gift, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
