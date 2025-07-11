@@ -258,6 +258,7 @@ export default function CartEnhanced() {
     const updatedItems = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedItems);
     localStorage.setItem("cart", JSON.stringify(updatedItems));
+    window.dispatchEvent(new Event("cartUpdate"));
   };
 
   const switchStore = (itemId: string, newStore: StoreComparison) => {
