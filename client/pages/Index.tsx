@@ -185,17 +185,22 @@ export default function Index() {
           </CardContent>
         </Card>
 
-        {/* Referral Banner */}
+        {/* Referral Banner with Enhanced Discount Info */}
         <Card className="mb-8 bg-gradient-to-r from-orange-500 to-pink-500 border-0">
           <CardContent className="p-6">
             <div className="flex items-center justify-between text-white">
               <div className="flex items-center space-x-3">
                 <Gift className="h-8 w-8" />
                 <div>
-                  <h3 className="text-lg font-semibold mb-1">Refer & Earn</h3>
+                  <h3 className="text-lg font-semibold mb-1">
+                    Refer & Earn More Discounts
+                  </h3>
                   <p className="text-white/90">
-                    Refer 10 friends and earn cashback rewards
+                    More referrals = More discount on every purchase
                   </p>
+                  <div className="text-xs text-white/80 mt-1">
+                    1-5 refs: 2% off • 6-10 refs: 5% off • 11+ refs: 10% off
+                  </div>
                 </div>
               </div>
               <ReferralShare
@@ -208,6 +213,76 @@ export default function Index() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Categories Section */}
+        <div className="mb-8">
+          <h3 className="text-2xl font-bold text-gray-900 mb-6">
+            Shop by Category
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            {[
+              {
+                id: "essentials",
+                name: "Essentials",
+                icon: "🛒",
+                color: "bg-blue-50 border-blue-200",
+              },
+              {
+                id: "home-living",
+                name: "Home & Living",
+                icon: "🏠",
+                color: "bg-green-50 border-green-200",
+              },
+              {
+                id: "lifestyle",
+                name: "Lifestyle",
+                icon: "✨",
+                color: "bg-purple-50 border-purple-200",
+              },
+              {
+                id: "electronics",
+                name: "Electronics",
+                icon: "📱",
+                color: "bg-orange-50 border-orange-200",
+              },
+              {
+                id: "automobile",
+                name: "Automobile",
+                icon: "🚗",
+                color: "bg-gray-50 border-gray-200",
+              },
+              {
+                id: "hospitality",
+                name: "Hospitality",
+                icon: "🏨",
+                color: "bg-pink-50 border-pink-200",
+              },
+              {
+                id: "fitness-sports",
+                name: "Fitness & Sports",
+                icon: "🏋️",
+                color: "bg-red-50 border-red-200",
+              },
+            ].map((category) => (
+              <Link
+                key={category.id}
+                to={`/category/${category.id}`}
+                className="block group"
+              >
+                <Card
+                  className={`${category.color} border-2 hover:shadow-md transition-all duration-200 cursor-pointer group-hover:scale-105`}
+                >
+                  <CardContent className="p-4 text-center">
+                    <div className="text-3xl mb-2">{category.icon}</div>
+                    <h4 className="text-sm font-semibold text-gray-800">
+                      {category.name}
+                    </h4>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
 
         {/* All Stores */}
         <div>
