@@ -156,6 +156,25 @@ export default function Category() {
     // Get existing cart from localStorage
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
+    // Check if cart has items from different store
+    if (existingCart.length > 0) {
+      const currentStoreName = existingCart[0].storeName;
+      if (currentStoreName !== product.storeName) {
+        // Show validation dialog
+        setPendingProduct(product);
+        setShowCartValidation(true);
+        return;
+      }
+    }
+
+    // If no conflict, add directly
+    addProductToCart(product);
+  };
+
+  const addProductToCart = (product: CategoryProduct) => {
+    // Get existing cart from localStorage (fresh copy)
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
     // Create cart item
     const cartItem = {
       id: `${product.id}-${product.storeName.toLowerCase()}`,
@@ -180,6 +199,23 @@ export default function Category() {
 
     // Navigate to cart
     navigate(`/cart?from=category&categoryId=${categoryId}`);
+  };
+
+  const handleClearAndAdd = () => {
+    if (pendingProduct) {
+      // Clear existing cart
+      localStorage.setItem("cart", JSON.stringify([]));
+      // Add new product
+      addProductToCart(pendingProduct);
+      // Close dialog
+      setShowCartValidation(false);
+      setPendingProduct(null);
+    }
+  };
+
+  const handleKeepCurrentCart = () => {
+    setShowCartValidation(false);
+    setPendingProduct(null);
   };
 
   return (
