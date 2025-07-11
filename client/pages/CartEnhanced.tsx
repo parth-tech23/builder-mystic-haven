@@ -691,16 +691,72 @@ export default function CartEnhanced() {
                   </div>
                 )}
 
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Delivery</span>
-                  <span className="font-semibold text-green-600">FREE</span>
-                </div>
+                {/* Delivery Charges Breakdown */}
+                {(() => {
+                  const { storeCharges, totalDeliveryCharge, storeSubtotals } =
+                    getDeliveryCharges();
+                  return (
+                    <div className="space-y-2">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Delivery Charges</span>
+                        <span
+                          className={`font-semibold ${totalDeliveryCharge === 0 ? "text-green-600" : "text-gray-900"}`}
+                        >
+                          {totalDeliveryCharge === 0
+                            ? "FREE"
+                            : `₹${totalDeliveryCharge}`}
+                        </span>
+                      </div>
+                      {Object.keys(storeCharges).length > 1 && (
+                        <div className="pl-4 space-y-1">
+                          {Object.entries(storeCharges).map(
+                            ([storeName, charge]) => (
+                              <div
+                                key={storeName}
+                                className="flex justify-between text-sm text-gray-500"
+                              >
+                                <span>• {storeName}</span>
+                                <span>
+                                  {charge === 0 ? "FREE" : `₹${charge}`}
+                                  {charge === 0 &&
+                                    storeDeliveryCharges[storeName]
+                                      ?.freeAbove &&
+                                    storeSubtotals[storeName] >=
+                                      storeDeliveryCharges[storeName]
+                                        .freeAbove! && (
+                                      <span className="text-green-600 ml-1">
+                                        (above ₹
+                                        {
+                                          storeDeliveryCharges[storeName]
+                                            .freeAbove
+                                        }
+                                        )
+                                      </span>
+                                    )}
+                                  {charge === 0 &&
+                                    storeDeliveryCharges[storeName]?.charge ===
+                                      0 && (
+                                      <span className="text-green-600 ml-1">
+                                        (always free)
+                                      </span>
+                                    )}
+                                </span>
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()}
 
                 <hr />
 
                 <div className="flex justify-between text-lg font-bold">
                   <span>Total</span>
-                  <span>₹{getSubtotal()}</span>
+                  <span>
+                    ₹{getSubtotal() + getDeliveryCharges().totalDeliveryCharge}
+                  </span>
                 </div>
 
                 <div className="space-y-3 pt-4">
@@ -721,7 +777,7 @@ export default function CartEnhanced() {
                 </div>
 
                 <div className="text-xs text-gray-500 text-center pt-2">
-                  ���1000 refundable deposit required for checkout
+                  ₹1000 refundable deposit required for checkout
                 </div>
               </CardContent>
             </Card>
