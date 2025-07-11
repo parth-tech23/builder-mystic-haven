@@ -2046,6 +2046,9 @@ export default function Store() {
           }
         />
       )}
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
     </div>
   );
 }
