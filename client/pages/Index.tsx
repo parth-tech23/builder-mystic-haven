@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { ShoppingCart, User, Gift, Star } from "lucide-react";
+import { Gift, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import ReferralShare from "@/components/ReferralShare";
+import BottomNavigation from "@/components/BottomNavigation";
 
 export default function Index() {
   const allStores = [
