@@ -376,6 +376,9 @@ export default function Category() {
           }
         />
       )}
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
     </div>
   );
 }
