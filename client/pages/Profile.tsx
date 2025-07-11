@@ -64,7 +64,7 @@ export default function Profile() {
     totalReferrals: 3,
     currentDiscountTier: "2%", // based on referrals
     nextTierAt: 6,
-    nextTierDiscount: "5%"
+    nextTierDiscount: "5%",
     recentTransactions: [
       {
         id: 1,
