@@ -1,349 +1,170 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import {
-  ArrowLeft,
-  ShoppingCart,
-  Star,
-  Plus,
-  TrendingUp,
-  TrendingDown,
-} from "lucide-react";
+import { ArrowLeft, ShoppingCart, Star, Plus, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 
-interface Product {
+interface CategoryProduct {
   id: string;
   name: string;
   image: string;
-  category: string;
-  stores: {
-    name: string;
-    price: number;
-    originalPrice?: number;
-    rating: number;
-    reviews: number;
-    availability: "in-stock" | "low-stock" | "out-of-stock";
-    deliveryTime: string;
-    discount?: string;
-  }[];
+  price: number;
+  originalPrice?: number;
+  discount?: string;
+  rating: number;
+  reviews: number;
+  storeName: string;
+  storeLocation: string;
+  storeDistance: string;
+  deliveryTime: string;
+  availability: "in-stock" | "low-stock" | "out-of-stock";
 }
 
-const productData: { [key: string]: Product[] } = {
-  "dairy-eggs": [
+export default function Category() {
+  const { categoryId } = useParams();
+  const navigate = useNavigate();
+
+  const categoryData = {
+    essentials: {
+      name: "Essentials",
+      icon: "🛒",
+      description: "Daily necessities and food items",
+    },
+    "home-living": {
+      name: "Home & Living",
+      icon: "🏠",
+      description: "Furniture, decor, and household items",
+    },
+    lifestyle: {
+      name: "Lifestyle",
+      icon: "✨",
+      description: "Fashion, beauty, and lifestyle products",
+    },
+    electronics: {
+      name: "Electronics",
+      icon: "📱",
+      description: "Gadgets, appliances, and tech products",
+    },
+    automobile: {
+      name: "Automobile",
+      icon: "🚗",
+      description: "Car accessories and automotive products",
+    },
+    hospitality: {
+      name: "Hospitality",
+      icon: "🏨",
+      description: "Snacks, beverages, and hospitality items",
+    },
+    "fitness-sports": {
+      name: "Fitness & Sports",
+      icon: "🏋️",
+      description: "Exercise equipment and sports gear",
+    },
+  };
+
+  // Sample products aggregated from all stores for the category
+  const categoryProducts: CategoryProduct[] = [
+    // Sample data - in real app this would come from API
     {
-      id: "milk-1l",
+      id: "milk-1l-multiple",
       name: "Fresh Milk 1L",
       image: "🥛",
-      category: "dairy-eggs",
-      stores: [
-        {
-          name: "Blinkit",
-          price: 60,
-          originalPrice: 63,
-          rating: 4.9,
-          reviews: 1850,
-          availability: "in-stock",
-          deliveryTime: "10-15 mins",
-          discount: "5% off",
-        },
-        {
-          name: "Zepto",
-          price: 59,
-          rating: 4.8,
-          reviews: 1420,
-          availability: "in-stock",
-          deliveryTime: "8-12 mins",
-        },
-        {
-          name: "Reliance Fresh",
-          price: 62,
-          originalPrice: 65,
-          rating: 4.7,
-          reviews: 1240,
-          availability: "in-stock",
-          deliveryTime: "25-30 mins",
-          discount: "5% off",
-        },
-        {
-          name: "DMart",
-          price: 58,
-          rating: 4.6,
-          reviews: 890,
-          availability: "in-stock",
-          deliveryTime: "30-35 mins",
-        },
-        {
-          name: "Big Basket",
-          price: 64,
-          originalPrice: 68,
-          rating: 4.7,
-          reviews: 2100,
-          availability: "in-stock",
-          deliveryTime: "45-60 mins",
-          discount: "6% off",
-        },
-        {
-          name: "Swiggy Instamart",
-          price: 61,
-          rating: 4.6,
-          reviews: 980,
-          availability: "in-stock",
-          deliveryTime: "15-25 mins",
-          discount: "10% cashback",
-        },
-      ],
+      price: 58,
+      originalPrice: 65,
+      discount: "11% off",
+      rating: 4.7,
+      reviews: 1240,
+      storeName: "DMart",
+      storeLocation: "Bopal, Ahmedabad",
+      storeDistance: "4.2 km",
+      deliveryTime: "25-30 mins",
+      availability: "in-stock",
     },
     {
-      id: "cheese-200g",
-      name: "Cheddar Cheese 200g",
-      image: "🧀",
-      category: "dairy-eggs",
-      stores: [
-        {
-          name: "Reliance Fresh",
-          price: 180,
-          rating: 4.5,
-          reviews: 340,
-          availability: "in-stock",
-          deliveryTime: "25-30 mins",
-        },
-        {
-          name: "DMart",
-          price: 165,
-          originalPrice: 175,
-          rating: 4.3,
-          reviews: 120,
-          availability: "low-stock",
-          deliveryTime: "30-35 mins",
-          discount: "6% off",
-        },
-        {
-          name: "Big Basket",
-          price: 190,
-          rating: 4.6,
-          reviews: 560,
-          availability: "in-stock",
-          deliveryTime: "45-60 mins",
-        },
-      ],
+      id: "bread-multiple",
+      name: "Whole Wheat Bread",
+      image: "🍞",
+      price: 38,
+      originalPrice: 42,
+      discount: "10% off",
+      rating: 4.5,
+      reviews: 890,
+      storeName: "Reliance Fresh",
+      storeLocation: "CG Road, Ahmedabad",
+      storeDistance: "3.5 km",
+      deliveryTime: "20-25 mins",
+      availability: "in-stock",
     },
     {
-      id: "yogurt-400g",
-      name: "Greek Yogurt 400g",
-      image: "🥄",
-      category: "dairy-eggs",
-      stores: [
-        {
-          name: "Reliance Fresh",
-          price: 120,
-          originalPrice: 130,
-          rating: 4.7,
-          reviews: 680,
-          availability: "in-stock",
-          deliveryTime: "25-30 mins",
-          discount: "8% off",
-        },
-        {
-          name: "DMart",
-          price: 115,
-          rating: 4.4,
-          reviews: 290,
-          availability: "in-stock",
-          deliveryTime: "30-35 mins",
-        },
-        {
-          name: "Big Basket",
-          price: 125,
-          rating: 4.8,
-          reviews: 920,
-          availability: "in-stock",
-          deliveryTime: "45-60 mins",
-        },
-      ],
-    },
-  ],
-  "fresh-produce": [
-    {
-      id: "apples-1kg",
-      name: "Red Apples 1kg",
-      image: "🍎",
-      category: "fresh-produce",
-      stores: [
-        {
-          name: "Blinkit",
-          price: 170,
-          originalPrice: 185,
-          rating: 4.9,
-          reviews: 1340,
-          availability: "in-stock",
-          deliveryTime: "10-15 mins",
-          discount: "8% off",
-        },
-        {
-          name: "Zepto",
-          price: 168,
-          rating: 4.8,
-          reviews: 920,
-          availability: "in-stock",
-          deliveryTime: "8-12 mins",
-        },
-        {
-          name: "Reliance Fresh",
-          price: 180,
-          originalPrice: 200,
-          rating: 4.6,
-          reviews: 890,
-          availability: "in-stock",
-          deliveryTime: "25-30 mins",
-          discount: "10% off",
-        },
-        {
-          name: "DMart",
-          price: 165,
-          rating: 4.5,
-          reviews: 450,
-          availability: "in-stock",
-          deliveryTime: "30-35 mins",
-        },
-        {
-          name: "Big Basket",
-          price: 175,
-          rating: 4.8,
-          reviews: 1200,
-          availability: "in-stock",
-          deliveryTime: "45-60 mins",
-        },
-      ],
-    },
-    {
-      id: "bananas-1kg",
+      id: "bananas-multiple",
       name: "Fresh Bananas 1kg",
       image: "🍌",
-      category: "fresh-produce",
-      stores: [
-        {
-          name: "Reliance Fresh",
-          price: 60,
-          rating: 4.4,
-          reviews: 320,
-          availability: "in-stock",
-          deliveryTime: "25-30 mins",
-        },
-        {
-          name: "DMart",
-          price: 55,
-          originalPrice: 65,
-          rating: 4.3,
-          reviews: 180,
-          availability: "in-stock",
-          deliveryTime: "30-35 mins",
-          discount: "15% off",
-        },
-        {
-          name: "Big Basket",
-          price: 65,
-          rating: 4.6,
-          reviews: 540,
-          availability: "in-stock",
-          deliveryTime: "45-60 mins",
-        },
-      ],
+      price: 55,
+      originalPrice: 60,
+      discount: "8% off",
+      rating: 4.8,
+      reviews: 640,
+      storeName: "Blinkit",
+      storeLocation: "Vastrapur, Ahmedabad",
+      storeDistance: "1.2 km",
+      deliveryTime: "8-12 mins",
+      availability: "in-stock",
     },
     {
-      id: "tomatoes-500g",
-      name: "Fresh Tomatoes 500g",
-      image: "🍅",
-      category: "fresh-produce",
-      stores: [
-        {
-          name: "Reliance Fresh",
-          price: 40,
-          rating: 4.5,
-          reviews: 210,
-          availability: "in-stock",
-          deliveryTime: "25-30 mins",
-        },
-        {
-          name: "DMart",
-          price: 35,
-          rating: 4.2,
-          reviews: 95,
-          availability: "low-stock",
-          deliveryTime: "30-35 mins",
-        },
-        {
-          name: "Big Basket",
-          price: 45,
-          originalPrice: 50,
-          rating: 4.7,
-          reviews: 380,
-          availability: "in-stock",
-          deliveryTime: "45-60 mins",
-          discount: "10% off",
-        },
-      ],
+      id: "rice-multiple",
+      name: "Basmati Rice 5kg",
+      image: "🍚",
+      price: 450,
+      originalPrice: 500,
+      discount: "10% off",
+      rating: 4.6,
+      reviews: 280,
+      storeName: "Big Basket",
+      storeLocation: "Gurukul, Ahmedabad",
+      storeDistance: "7.3 km",
+      deliveryTime: "45-60 mins",
+      availability: "in-stock",
     },
-  ],
-};
+  ];
 
-// Add similar data for other categories
-const getDefaultProducts = (category: string): Product[] => [
-  {
-    id: `${category}-item-1`,
-    name: `Premium ${category} Item`,
-    image: "📦",
-    category,
-    stores: [
-      {
-        name: "Reliance Fresh",
-        price: 150,
-        rating: 4.5,
-        reviews: 200,
-        availability: "in-stock",
-        deliveryTime: "25-30 mins",
-      },
-      {
-        name: "DMart",
-        price: 140,
-        rating: 4.3,
-        reviews: 150,
-        availability: "in-stock",
-        deliveryTime: "30-35 mins",
-      },
-      {
-        name: "Big Basket",
-        price: 160,
-        rating: 4.6,
-        reviews: 300,
-        availability: "in-stock",
-        deliveryTime: "45-60 mins",
-      },
-    ],
-  },
-];
+  const category = categoryData[categoryId as keyof typeof categoryData];
 
-export default function Category() {
-  const { mainCategory, subCategory } = useParams();
-  const navigate = useNavigate();
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  if (!category) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="max-w-md mx-auto text-center">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Category not found
+            </h2>
+            <Button asChild>
+              <Link to="/">Go back to home</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
-  const addToCart = (product: Product, store: any) => {
+  const addToCart = (product: CategoryProduct) => {
     // Get existing cart from localStorage
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     // Create cart item
     const cartItem = {
-      id: `${product.id}-${store.name}`,
+      id: `${product.id}-${product.storeName.toLowerCase()}`,
       productId: product.id,
       productName: product.name,
       productImage: product.image,
-      storeName: store.name,
-      price: store.price,
-      originalPrice: store.originalPrice,
-      discount: store.discount,
-      rating: store.rating,
-      deliveryTime: store.deliveryTime,
+      storeName: product.storeName,
+      storeLocation: product.storeLocation,
+      storeDistance: product.storeDistance,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      discount: product.discount,
+      rating: product.rating,
+      deliveryTime: product.deliveryTime,
       quantity: 1,
       addedAt: new Date().toISOString(),
     };
@@ -352,28 +173,8 @@ export default function Category() {
     const updatedCart = [...existingCart, cartItem];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
-    // Navigate to cart with payment options
-    navigate(
-      `/cart?from=category&mainCategory=${mainCategory}&subCategory=${subCategory}`,
-    );
-  };
-
-  const products =
-    productData[subCategory || ""] || getDefaultProducts(subCategory || "");
-  const categoryName = subCategory?.replace("-", " & ") || "Products";
-
-  const getBestPrice = (product: Product) => {
-    return Math.min(...product.stores.map((store) => store.price));
-  };
-
-  const getWorstPrice = (product: Product) => {
-    return Math.max(...product.stores.map((store) => store.price));
-  };
-
-  const getPriceDifference = (product: Product) => {
-    const best = getBestPrice(product);
-    const worst = getWorstPrice(product);
-    return worst - best;
+    // Navigate to cart
+    navigate(`/cart?from=category&categoryId=${categoryId}`);
   };
 
   return (
@@ -383,20 +184,17 @@ export default function Category() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-4">
-              <Link
-                to={`/categories/${mainCategory}`}
-                className="text-primary hover:text-primary/80"
-              >
+              <Link to="/" className="text-primary hover:text-primary/80">
                 <ArrowLeft className="h-5 w-5" />
               </Link>
-              <div>
-                <h1 className="text-xl font-semibold capitalize">
-                  {categoryName}
-                </h1>
-                <p className="text-sm text-gray-600">
-                  {mainCategory?.replace("-", " & ")} →{" "}
-                  {subCategory?.replace("-", " & ")}
-                </p>
+              <div className="flex items-center space-x-3">
+                <div className="text-2xl">{category.icon}</div>
+                <div>
+                  <h1 className="text-xl font-semibold">{category.name}</h1>
+                  <p className="text-sm text-gray-600">
+                    {category.description}
+                  </p>
+                </div>
               </div>
             </div>
             <Button variant="ghost" size="sm" asChild>
@@ -409,227 +207,120 @@ export default function Category() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {!selectedProduct ? (
-          // Product Grid
-          <div>
-            <div className="mb-6">
+        {/* Category Info */}
+        <Card className="mb-6 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+          <CardContent className="p-6">
+            <div className="text-center">
+              <div className="text-4xl mb-3">{category.icon}</div>
               <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                Compare Prices Across Stores
+                {category.name}
               </h2>
-              <p className="text-gray-600">
-                Click on any product to see detailed price comparison
-              </p>
+              <p className="text-gray-600 mb-4">{category.description}</p>
+              <Badge className="bg-primary/10 text-primary">
+                Best prices across all stores
+              </Badge>
             </div>
+          </CardContent>
+        </Card>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product) => {
-                const bestPrice = getBestPrice(product);
-                const priceDiff = getPriceDifference(product);
-
-                return (
-                  <Card
-                    key={product.id}
-                    className="hover:shadow-lg transition-all duration-200 cursor-pointer group"
-                    onClick={() => setSelectedProduct(product)}
-                  >
-                    <CardContent className="p-6">
-                      <div className="text-center mb-4">
-                        <div className="text-4xl mb-2">{product.image}</div>
-                        <h3 className="font-semibold text-gray-900 mb-2">
-                          {product.name}
-                        </h3>
-                      </div>
-
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">
-                            Best Price:
-                          </span>
-                          <span className="text-lg font-bold text-primary">
-                            ₹{bestPrice}
-                          </span>
-                        </div>
-
-                        {priceDiff > 0 && (
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm text-gray-600">
-                              Save up to:
-                            </span>
-                            <span className="text-sm font-semibold text-green-600">
-                              ₹{priceDiff}
-                            </span>
-                          </div>
-                        )}
-
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-600">Stores:</span>
-                          <span className="text-sm text-gray-900">
-                            {product.stores.length} available
-                          </span>
-                        </div>
-                      </div>
-
-                      <Button className="w-full mt-4 group-hover:bg-primary/90">
-                        Compare Prices
-                      </Button>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
+        {/* Products Grid */}
+        <div>
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-semibold text-gray-900">
+              Available Products
+            </h3>
+            <p className="text-sm text-gray-600">
+              {categoryProducts.length} products from multiple stores
+            </p>
           </div>
-        ) : (
-          // Product Comparison View
-          <div>
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center space-x-4">
-                <Button
-                  variant="ghost"
-                  onClick={() => setSelectedProduct(null)}
-                  className="p-2"
-                >
-                  <ArrowLeft className="h-5 w-5" />
-                </Button>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    {selectedProduct.name}
-                  </h2>
-                  <p className="text-gray-600">Compare across all stores</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-3xl mb-2">{selectedProduct.image}</div>
-              </div>
-            </div>
 
-            {/* Price Summary */}
-            <Card className="mb-6 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
-              <CardContent className="p-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">Best Price</p>
-                    <p className="text-2xl font-bold text-green-600">
-                      ₹{getBestPrice(selectedProduct)}
-                    </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {categoryProducts.map((product) => (
+              <Card
+                key={product.id}
+                className="hover:shadow-lg transition-shadow"
+              >
+                <CardContent className="p-4">
+                  <div className="text-center mb-4">
+                    <div className="text-4xl mb-2">{product.image}</div>
+                    <h4 className="font-semibold text-gray-900 mb-1">
+                      {product.name}
+                    </h4>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">Highest Price</p>
-                    <p className="text-2xl font-bold text-red-600">
-                      ₹{getWorstPrice(selectedProduct)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">You Save</p>
-                    <p className="text-2xl font-bold text-primary">
-                      ₹{getPriceDifference(selectedProduct)}
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600 mb-1">Stores</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {selectedProduct.stores.length}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
 
-            {/* Store Comparison */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {selectedProduct.stores
-                .sort((a, b) => a.price - b.price)
-                .map((store, index) => (
-                  <Card
-                    key={store.name}
-                    className={`relative ${
-                      index === 0 ? "ring-2 ring-primary border-primary" : ""
-                    }`}
-                  >
-                    {index === 0 && (
-                      <Badge className="absolute -top-2 left-4 bg-primary">
-                        Best Price
-                      </Badge>
-                    )}
-
-                    <CardHeader className="pb-3">
-                      <CardTitle className="flex items-center justify-between">
-                        <span>{store.name}</span>
-                        {index === 0 ? (
-                          <TrendingDown className="h-5 w-5 text-green-600" />
-                        ) : index === selectedProduct.stores.length - 1 ? (
-                          <TrendingUp className="h-5 w-5 text-red-600" />
-                        ) : null}
-                      </CardTitle>
-                    </CardHeader>
-
-                    <CardContent className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="text-3xl font-bold text-gray-900">
-                          ₹{store.price}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-lg font-bold text-gray-900">
+                          ₹{product.price}
                         </span>
-                        {store.originalPrice && (
-                          <div className="text-right">
+                        {product.originalPrice && (
+                          <>
                             <span className="text-sm text-gray-500 line-through">
-                              ₹{store.originalPrice}
+                              ₹{product.originalPrice}
                             </span>
-                            {store.discount && (
-                              <Badge
-                                variant="secondary"
-                                className="ml-2 text-xs"
-                              >
-                                {store.discount}
+                            {product.discount && (
+                              <Badge variant="secondary" className="text-xs">
+                                {product.discount}
                               </Badge>
                             )}
-                          </div>
+                          </>
                         )}
                       </div>
+                    </div>
 
-                      <div className="flex items-center space-x-4 text-sm">
+                    <div className="flex items-center justify-between text-sm text-gray-600">
+                      <div className="flex items-center space-x-1">
+                        <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                        <span>{product.rating}</span>
+                        <span>({product.reviews})</span>
+                      </div>
+                      <Badge
+                        variant={
+                          product.availability === "in-stock"
+                            ? "default"
+                            : product.availability === "low-stock"
+                              ? "secondary"
+                              : "destructive"
+                        }
+                        className="text-xs"
+                      >
+                        {product.availability.replace("-", " ")}
+                      </Badge>
+                    </div>
+
+                    {/* Store Info */}
+                    <div className="bg-gray-50 rounded-lg p-2">
+                      <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center space-x-1">
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <span>{store.rating}</span>
-                          <span className="text-gray-500">
-                            ({store.reviews})
+                          <MapPin className="h-3 w-3 text-primary" />
+                          <span className="font-medium">
+                            {product.storeName}
                           </span>
                         </div>
+                        <span className="text-gray-600">
+                          {product.storeDistance}
+                        </span>
                       </div>
-
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Delivery:</span>
-                          <span>{store.deliveryTime}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Stock:</span>
-                          <Badge
-                            variant={
-                              store.availability === "in-stock"
-                                ? "default"
-                                : store.availability === "low-stock"
-                                  ? "secondary"
-                                  : "destructive"
-                            }
-                            className="text-xs"
-                          >
-                            {store.availability.replace("-", " ")}
-                          </Badge>
-                        </div>
+                      <div className="text-xs text-gray-500 mt-1">
+                        Delivery: {product.deliveryTime}
                       </div>
+                    </div>
+                  </div>
 
-                      <Button
-                        className="w-full"
-                        disabled={store.availability === "out-of-stock"}
-                        onClick={() => addToCart(selectedProduct, store)}
-                      >
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add to Cart
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-            </div>
+                  <Button
+                    className="w-full"
+                    onClick={() => addToCart(product)}
+                    disabled={product.availability === "out-of-stock"}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add to Cart
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        )}
+        </div>
       </main>
     </div>
   );
