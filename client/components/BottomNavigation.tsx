@@ -42,12 +42,10 @@ export default function BottomNavigation() {
     return false;
   };
 
-  const getIconColor = (path: string) => {
-    return isActive(path) ? "text-primary" : "text-gray-500";
-  };
-
-  const getButtonVariant = (path: string) => {
-    return isActive(path) ? "default" : "ghost";
+  const getActiveStyles = (path: string) => {
+    return isActive(path)
+      ? "text-primary bg-primary/10 border border-primary/20"
+      : "text-gray-500 hover:text-gray-700 hover:bg-gray-50";
   };
 
   return (
@@ -55,53 +53,50 @@ export default function BottomNavigation() {
       <div className="max-w-screen-sm mx-auto px-4">
         <div className="flex items-center justify-around py-2">
           {/* Home */}
-          <Button
-            variant={getButtonVariant("/")}
-            size="sm"
-            asChild
-            className={`flex-col h-12 w-16 px-1 ${getIconColor("/")}`}
+          <Link
+            to="/"
+            className={`flex flex-col items-center justify-center h-12 w-16 px-1 py-2 rounded-lg transition-all duration-200 ${getActiveStyles("/")}`}
           >
-            <Link to="/">
-              <Home className="h-5 w-5 mb-1" />
-              <span className="text-xs">Home</span>
-            </Link>
-          </Button>
+            <Home className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">Home</span>
+            {isActive("/") && (
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary rounded-t-full"></div>
+            )}
+          </Link>
 
           {/* Cart */}
-          <Button
-            variant={getButtonVariant("/cart")}
-            size="sm"
-            asChild
-            className={`flex-col h-12 w-16 px-1 relative ${getIconColor("/cart")}`}
+          <Link
+            to="/cart"
+            className={`flex flex-col items-center justify-center h-12 w-16 px-1 py-2 rounded-lg transition-all duration-200 relative ${getActiveStyles("/cart")}`}
           >
-            <Link to="/cart">
-              <div className="relative">
-                <ShoppingCart className="h-5 w-5 mb-1" />
-                {cartItemsCount > 0 && (
-                  <Badge
-                    className="absolute -top-2 -right-2 h-5 w-5 text-xs p-0 flex items-center justify-center bg-red-500 hover:bg-red-500"
-                    variant="destructive"
-                  >
-                    {cartItemsCount > 99 ? "99+" : cartItemsCount}
-                  </Badge>
-                )}
-              </div>
-              <span className="text-xs">Cart</span>
-            </Link>
-          </Button>
+            <div className="relative">
+              <ShoppingCart className="h-5 w-5 mb-1" />
+              {cartItemsCount > 0 && (
+                <Badge
+                  className="absolute -top-2 -right-2 h-5 w-5 text-xs p-0 flex items-center justify-center bg-red-500 hover:bg-red-500"
+                  variant="destructive"
+                >
+                  {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                </Badge>
+              )}
+            </div>
+            <span className="text-xs font-medium">Cart</span>
+            {isActive("/cart") && (
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary rounded-t-full"></div>
+            )}
+          </Link>
 
           {/* Profile */}
-          <Button
-            variant={getButtonVariant("/profile")}
-            size="sm"
-            asChild
-            className={`flex-col h-12 w-16 px-1 ${getIconColor("/profile")}`}
+          <Link
+            to="/profile"
+            className={`flex flex-col items-center justify-center h-12 w-16 px-1 py-2 rounded-lg transition-all duration-200 relative ${getActiveStyles("/profile")}`}
           >
-            <Link to="/profile">
-              <User className="h-5 w-5 mb-1" />
-              <span className="text-xs">Profile</span>
-            </Link>
-          </Button>
+            <User className="h-5 w-5 mb-1" />
+            <span className="text-xs font-medium">Profile</span>
+            {isActive("/profile") && (
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary rounded-t-full"></div>
+            )}
+          </Link>
         </div>
       </div>
     </div>
