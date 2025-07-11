@@ -317,6 +317,55 @@ export default function CartEnhanced() {
     }, 0);
   };
 
+  // Store delivery charge data
+  const storeDeliveryCharges: {
+    [key: string]: { charge: number; freeAbove?: number };
+  } = {
+    Blinkit: { charge: 25, freeAbove: 199 },
+    Zepto: { charge: 0 },
+    "Reliance Fresh": { charge: 49, freeAbove: 500 },
+    DMart: { charge: 39, freeAbove: 999 },
+    "More Supermarket": { charge: 49, freeAbove: 500 },
+    Croma: { charge: 99, freeAbove: 2999 },
+    "Big Basket": { charge: 29, freeAbove: 299 },
+    "Swiggy Instamart": { charge: 0 },
+  };
+
+  // Calculate delivery charges by store
+  const getDeliveryCharges = () => {
+    const storeSubtotals: { [key: string]: number } = {};
+    const storeCharges: { [key: string]: number } = {};
+    let totalDeliveryCharge = 0;
+
+    // Calculate subtotal for each store
+    cartItems.forEach((item) => {
+      if (!storeSubtotals[item.storeName]) {
+        storeSubtotals[item.storeName] = 0;
+      }
+      storeSubtotals[item.storeName] += item.price * item.quantity;
+    });
+
+    // Calculate delivery charge for each store
+    Object.keys(storeSubtotals).forEach((storeName) => {
+      const storeData = storeDeliveryCharges[storeName];
+      if (storeData) {
+        if (storeData.charge === 0) {
+          storeCharges[storeName] = 0;
+        } else if (
+          storeData.freeAbove &&
+          storeSubtotals[storeName] >= storeData.freeAbove
+        ) {
+          storeCharges[storeName] = 0;
+        } else {
+          storeCharges[storeName] = storeData.charge;
+        }
+        totalDeliveryCharge += storeCharges[storeName];
+      }
+    });
+
+    return { storeCharges, totalDeliveryCharge, storeSubtotals };
+  };
+
   const continueShopping = () => {
     setShowPaymentOptions(false);
     if (storeId) {
@@ -672,7 +721,7 @@ export default function CartEnhanced() {
                 </div>
 
                 <div className="text-xs text-gray-500 text-center pt-2">
-                  ₹1000 refundable deposit required for checkout
+                  ���1000 refundable deposit required for checkout
                 </div>
               </CardContent>
             </Card>
