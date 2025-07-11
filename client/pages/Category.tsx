@@ -198,6 +198,9 @@ export default function Category() {
     const updatedCart = [...existingCart, cartItem];
     localStorage.setItem("cart", JSON.stringify(updatedCart));
 
+    // Trigger cart update event for same-tab updates
+    window.dispatchEvent(new Event("cartUpdate"));
+
     // Navigate to cart
     navigate(`/cart?from=category&categoryId=${categoryId}`);
   };
