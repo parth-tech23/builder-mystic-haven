@@ -31,6 +31,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/category/:categoryId" element={<Category />} />
           <Route path="/categories/:categoryId" element={<SubCategory />} />
           <Route
             path="/category/:mainCategory/:subCategory"
@@ -51,6 +52,5 @@ const App = () => (
     </TooltipProvider>
   </QueryClientProvider>
 );
-
 
 createRoot(document.getElementById("root")!).render(<App />);
