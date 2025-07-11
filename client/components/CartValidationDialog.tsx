@@ -37,33 +37,35 @@ export default function CartValidationDialog({
             <AlertTriangle className="h-5 w-5 text-amber-500" />
             <span>Different Store Detected</span>
           </DialogTitle>
-          <DialogDescription className="text-left space-y-3 pt-2">
-            <div className="flex items-center space-x-2">
-              <ShoppingCart className="h-4 w-4 text-primary" />
-              <span className="text-sm">
-                You have{" "}
-                <span className="font-semibold">{currentCartItemsCount}</span>{" "}
-                item{currentCartItemsCount > 1 ? "s" : ""} from{" "}
+          <DialogDescription asChild>
+            <div className="text-left space-y-3 pt-2">
+              <div className="flex items-center space-x-2">
+                <ShoppingCart className="h-4 w-4 text-primary" />
+                <span className="text-sm">
+                  You have{" "}
+                  <span className="font-semibold">{currentCartItemsCount}</span>{" "}
+                  item{currentCartItemsCount > 1 ? "s" : ""} from{" "}
+                  <Badge variant="outline" className="text-xs">
+                    {currentStoreName}
+                  </Badge>{" "}
+                  in your cart.
+                </span>
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                <div className="text-sm text-amber-800">
+                  <strong>Note:</strong> Orders can only contain items from a
+                  single store to ensure faster delivery and better service.
+                </div>
+              </div>
+
+              <div className="text-sm text-gray-600">
+                To add items from{" "}
                 <Badge variant="outline" className="text-xs">
-                  {currentStoreName}
-                </Badge>{" "}
-                in your cart.
-              </span>
-            </div>
-
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-              <p className="text-sm text-amber-800">
-                <strong>Note:</strong> Orders can only contain items from a
-                single store to ensure faster delivery and better service.
-              </p>
-            </div>
-
-            <div className="text-sm text-gray-600">
-              To add items from{" "}
-              <Badge variant="outline" className="text-xs">
-                {newStoreName}
-              </Badge>
-              , we need to clear your current cart first.
+                  {newStoreName}
+                </Badge>
+                , we need to clear your current cart first.
+              </div>
             </div>
           </DialogDescription>
         </DialogHeader>
