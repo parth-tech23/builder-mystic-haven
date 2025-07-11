@@ -746,7 +746,7 @@ const storeProducts: { [key: string]: StoreProduct[] } = {
     {
       id: "apples-zepto",
       name: "Red Apples 1kg",
-      image: "🍎",
+      image: "����",
       category: "essentials",
       price: 168,
       rating: 4.9,
@@ -1615,6 +1615,25 @@ export default function Store() {
     // Get existing cart from localStorage
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
 
+    // Check if cart has items from different store
+    if (existingCart.length > 0) {
+      const currentStoreName = existingCart[0].storeName;
+      if (currentStoreName !== store.displayName) {
+        // Show validation dialog
+        setPendingProduct(product);
+        setShowCartValidation(true);
+        return;
+      }
+    }
+
+    // If no conflict, add directly
+    addProductToCart(product);
+  };
+
+  const addProductToCart = (product: StoreProduct) => {
+    // Get existing cart from localStorage (fresh copy)
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
     // Create cart item
     const cartItem = {
       id: `${product.id}-${store.name}`,
@@ -1639,6 +1658,23 @@ export default function Store() {
 
     // Navigate to cart
     navigate(`/cart?from=store&storeId=${storeId}`);
+  };
+
+  const handleClearAndAdd = () => {
+    if (pendingProduct) {
+      // Clear existing cart
+      localStorage.setItem("cart", JSON.stringify([]));
+      // Add new product
+      addProductToCart(pendingProduct);
+      // Close dialog
+      setShowCartValidation(false);
+      setPendingProduct(null);
+    }
+  };
+
+  const handleKeepCurrentCart = () => {
+    setShowCartValidation(false);
+    setPendingProduct(null);
   };
 
   const allCategories = [
