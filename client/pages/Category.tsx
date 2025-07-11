@@ -1,10 +1,11 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, ShoppingCart, Star, Plus, MapPin } from "lucide-react";
+import { ArrowLeft, Star, Plus, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import CartValidationDialog from "@/components/CartValidationDialog";
+import BottomNavigation from "@/components/BottomNavigation";
 
 interface CategoryProduct {
   id: string;
@@ -63,7 +64,7 @@ export default function Category() {
     },
     "fitness-sports": {
       name: "Fitness & Sports",
-      icon: "🏋️",
+      icon: "🏋��",
       description: "Exercise equipment and sports gear",
     },
   };
