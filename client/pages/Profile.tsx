@@ -612,6 +612,9 @@ export default function Profile() {
           </Link>
         </Button>
       </main>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
     </div>
   );
 }
