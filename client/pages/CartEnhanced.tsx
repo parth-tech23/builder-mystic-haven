@@ -785,6 +785,9 @@ export default function CartEnhanced() {
           </div>
         </div>
       </main>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
     </div>
   );
 }
