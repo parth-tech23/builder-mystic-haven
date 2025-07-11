@@ -1553,6 +1553,10 @@ export default function Store() {
   const [selectedCategory, setSelectedCategory] =
     useState<string>("essentials");
   const [expandedPrices, setExpandedPrices] = useState<Set<string>>(new Set());
+  const [showCartValidation, setShowCartValidation] = useState(false);
+  const [pendingProduct, setPendingProduct] = useState<StoreProduct | null>(
+    null,
+  );
 
   const store = storeData[storeId || ""];
   const products = storeProducts[storeId || ""] || [];
