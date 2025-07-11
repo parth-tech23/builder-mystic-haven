@@ -251,6 +251,7 @@ export default function CartEnhanced() {
     );
     setCartItems(updatedItems);
     localStorage.setItem("cart", JSON.stringify(updatedItems));
+    window.dispatchEvent(new Event("cartUpdate"));
   };
 
   const removeItem = (itemId: string) => {
