@@ -1701,11 +1701,6 @@ export default function Store() {
                 <p className="text-sm text-gray-600">{store.type}</p>
               </div>
             </div>
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/cart">
-                <ShoppingCart className="h-5 w-5" />
-              </Link>
-            </Button>
           </div>
         </div>
       </header>
