@@ -196,7 +196,7 @@ export default function Profile() {
       </header>
 
       {/* Profile Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20">
         {/* User Info */}
         <Card className="mb-6">
           <CardContent className="p-6">
