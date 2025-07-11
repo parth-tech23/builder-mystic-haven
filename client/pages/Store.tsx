@@ -1,17 +1,11 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import {
-  ArrowLeft,
-  ShoppingCart,
-  Star,
-  Plus,
-  MapPin,
-  Clock,
-} from "lucide-react";
+import { ArrowLeft, Star, Plus, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import CartValidationDialog from "@/components/CartValidationDialog";
+import BottomNavigation from "@/components/BottomNavigation";
 
 interface StoreProduct {
   id: string;
