@@ -339,6 +339,9 @@ export default function Index() {
           </div>
         </div>
       </main>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation />
     </div>
   );
 }
