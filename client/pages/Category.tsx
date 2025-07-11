@@ -243,7 +243,7 @@ export default function Category() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-20">
         {/* Category Info */}
         <Card className="mb-6 bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
           <CardContent className="p-6">
