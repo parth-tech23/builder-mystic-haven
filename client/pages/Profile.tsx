@@ -20,6 +20,23 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import ReferralShare from "@/components/ReferralShare";
 
+// Helper function to get discount tier based on referrals
+const getReferralDiscountTier = (referralCount: number) => {
+  if (referralCount >= 11) return { discount: "10%", tier: "Platinum" };
+  if (referralCount >= 6) return { discount: "5%", tier: "Gold" };
+  if (referralCount >= 1) return { discount: "2%", tier: "Silver" };
+  return { discount: "0%", tier: "Bronze" };
+};
+
+const getNextTierInfo = (referralCount: number) => {
+  if (referralCount >= 11) return null; // Max tier reached
+  if (referralCount >= 6)
+    return { needed: 11 - referralCount, discount: "10%", tier: "Platinum" };
+  if (referralCount >= 1)
+    return { needed: 6 - referralCount, discount: "5%", tier: "Gold" };
+  return { needed: 1 - referralCount, discount: "2%", tier: "Silver" };
+};
+
 export default function Profile() {
   const orderHistory = [
     {
