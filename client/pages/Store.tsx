@@ -2040,6 +2040,23 @@ export default function Store() {
           </div>
         </div>
       </main>
+
+      {/* Cart Validation Dialog */}
+      {showCartValidation && pendingProduct && (
+        <CartValidationDialog
+          isOpen={showCartValidation}
+          onClose={() => setShowCartValidation(false)}
+          onClearAndAdd={handleClearAndAdd}
+          onCancel={handleKeepCurrentCart}
+          currentStoreName={
+            JSON.parse(localStorage.getItem("cart") || "[]")[0]?.storeName || ""
+          }
+          newStoreName={store.displayName}
+          currentCartItemsCount={
+            JSON.parse(localStorage.getItem("cart") || "[]").length
+          }
+        />
+      )}
     </div>
   );
 }
