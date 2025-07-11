@@ -264,49 +264,153 @@ export default function Profile() {
           </Card>
         </div>
 
-        {/* Referral Progress */}
+        {/* Enhanced Referral Discount System */}
         <Card className="mb-6 bg-gradient-to-r from-orange-50 to-pink-50 border-orange-200">
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center">
                 <TrendingUp className="h-5 w-5 mr-2 text-orange-600" />
-                Referral Progress
+                Referral Discount Tiers
               </span>
               <Badge
                 variant="secondary"
                 className="bg-orange-100 text-orange-800"
               >
-                {rewardsData.referralProgress}/10 friends
+                {getReferralDiscountTier(rewardsData.totalReferrals).tier}{" "}
+                Member
               </Badge>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <div className="flex justify-between text-sm mb-2">
-                <span>Progress to unlock premium benefits</span>
-                <span className="font-semibold">
-                  {rewardsData.referralProgress * 10}%
+            {/* Current Tier Info */}
+            <div className="bg-white rounded-lg p-4 border">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium">
+                  Current Discount on Every Purchase
+                </span>
+                <span className="text-2xl font-bold text-green-600">
+                  {getReferralDiscountTier(rewardsData.totalReferrals).discount}
                 </span>
               </div>
-              <Progress
-                value={rewardsData.referralProgress * 10}
-                className="h-3"
-              />
+              <p className="text-xs text-gray-600">
+                From {rewardsData.totalReferrals} successful referrals
+              </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <p className="text-gray-600">Next reward at:</p>
-                <p className="font-semibold text-orange-600">5 referrals</p>
-              </div>
-              <div>
-                <p className="text-gray-600">Unlock premium at:</p>
-                <p className="font-semibold text-orange-600">10 referrals</p>
+
+            {/* Tier Progress */}
+            {(() => {
+              const nextTier = getNextTierInfo(rewardsData.totalReferrals);
+              if (!nextTier) {
+                return (
+                  <div className="bg-gradient-to-r from-yellow-100 to-orange-100 rounded-lg p-4 text-center">
+                    <Trophy className="h-8 w-8 mx-auto mb-2 text-yellow-600" />
+                    <p className="font-semibold text-yellow-800">
+                      Maximum Tier Achieved!
+                    </p>
+                    <p className="text-sm text-yellow-700">
+                      You're getting the best discount possible
+                    </p>
+                  </div>
+                );
+              }
+
+              const progressPercent = Math.min(
+                100,
+                (rewardsData.totalReferrals / nextTier.needed) * 100,
+              );
+
+              return (
+                <div>
+                  <div className="flex justify-between text-sm mb-2">
+                    <span>
+                      Progress to {nextTier.tier} ({nextTier.discount})
+                    </span>
+                    <span className="font-semibold">
+                      {rewardsData.totalReferrals}/
+                      {nextTier.needed + rewardsData.totalReferrals} referrals
+                    </span>
+                  </div>
+                  <Progress value={progressPercent} className="h-3 mb-2" />
+                  <p className="text-xs text-gray-600">
+                    {nextTier.needed} more referrals to unlock{" "}
+                    {nextTier.discount} discount on every purchase
+                  </p>
+                </div>
+              );
+            })()}
+
+            {/* Discount Tiers Overview */}
+            <div className="bg-white rounded-lg p-4 border">
+              <h4 className="text-sm font-semibold mb-3">Discount Tiers</h4>
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between items-center">
+                  <span
+                    className={
+                      rewardsData.totalReferrals >= 1
+                        ? "text-green-600 font-medium"
+                        : "text-gray-500"
+                    }
+                  >
+                    🥈 Silver (1-5 refs)
+                  </span>
+                  <span
+                    className={
+                      rewardsData.totalReferrals >= 1
+                        ? "text-green-600 font-medium"
+                        : "text-gray-500"
+                    }
+                  >
+                    2% off
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span
+                    className={
+                      rewardsData.totalReferrals >= 6
+                        ? "text-green-600 font-medium"
+                        : "text-gray-500"
+                    }
+                  >
+                    🥇 Gold (6-10 refs)
+                  </span>
+                  <span
+                    className={
+                      rewardsData.totalReferrals >= 6
+                        ? "text-green-600 font-medium"
+                        : "text-gray-500"
+                    }
+                  >
+                    5% off
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span
+                    className={
+                      rewardsData.totalReferrals >= 11
+                        ? "text-green-600 font-medium"
+                        : "text-gray-500"
+                    }
+                  >
+                    💎 Platinum (11+ refs)
+                  </span>
+                  <span
+                    className={
+                      rewardsData.totalReferrals >= 11
+                        ? "text-green-600 font-medium"
+                        : "text-gray-500"
+                    }
+                  >
+                    10% off
+                  </span>
+                </div>
               </div>
             </div>
+
             <ReferralShare
               trigger={
                 <Button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600">
-                  Refer More Friends
+                  <Gift className="h-4 w-4 mr-2" />
+                  Refer More Friends for Higher Discounts
                 </Button>
               }
             />
