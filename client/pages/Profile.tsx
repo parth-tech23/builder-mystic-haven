@@ -19,6 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import ReferralShare from "@/components/ReferralShare";
+import BottomNavigation from "@/components/BottomNavigation";
 
 // Helper function to get discount tier based on referrals
 const getReferralDiscountTier = (referralCount: number) => {
