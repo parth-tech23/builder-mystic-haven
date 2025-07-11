@@ -60,7 +60,11 @@ export default function Profile() {
     totalCashback: 1250,
     totalDiscounts: 3400,
     totalRewards: 850,
-    referralProgress: 3, // out of 10
+    referralProgress: 3, // current referrals
+    totalReferrals: 3,
+    currentDiscountTier: "2%", // based on referrals
+    nextTierAt: 6,
+    nextTierDiscount: "5%"
     recentTransactions: [
       {
         id: 1,
