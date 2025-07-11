@@ -42,12 +42,6 @@ export default function BottomNavigation() {
     return false;
   };
 
-  const getActiveStyles = (path: string) => {
-    return isActive(path)
-      ? "text-primary bg-primary/10 border border-primary/20"
-      : "text-gray-500 hover:text-gray-700 hover:bg-gray-50";
-  };
-
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50">
       <div className="max-w-screen-sm mx-auto px-4">
@@ -55,47 +49,68 @@ export default function BottomNavigation() {
           {/* Home */}
           <Link
             to="/"
-            className={`flex flex-col items-center justify-center h-12 w-16 px-1 py-2 rounded-lg transition-all duration-200 ${getActiveStyles("/")}`}
+            className={`flex flex-col items-center justify-center h-14 w-20 px-1 py-2 rounded-xl transition-all duration-300 relative ${
+              isActive("/")
+                ? "text-white bg-primary shadow-lg scale-105"
+                : "text-gray-400 hover:text-gray-600"
+            }`}
           >
-            <Home className="h-5 w-5 mb-1" />
-            <span className="text-xs font-medium">Home</span>
-            {isActive("/") && (
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary rounded-t-full"></div>
-            )}
+            <Home
+              className={`h-6 w-6 mb-1 ${isActive("/") ? "stroke-2" : ""}`}
+            />
+            <span
+              className={`text-xs ${isActive("/") ? "font-semibold" : "font-medium"}`}
+            >
+              Home
+            </span>
           </Link>
 
           {/* Cart */}
           <Link
             to="/cart"
-            className={`flex flex-col items-center justify-center h-12 w-16 px-1 py-2 rounded-lg transition-all duration-200 relative ${getActiveStyles("/cart")}`}
+            className={`flex flex-col items-center justify-center h-14 w-20 px-1 py-2 rounded-xl transition-all duration-300 relative ${
+              isActive("/cart")
+                ? "text-white bg-primary shadow-lg scale-105"
+                : "text-gray-400 hover:text-gray-600"
+            }`}
           >
             <div className="relative">
-              <ShoppingCart className="h-5 w-5 mb-1" />
+              <ShoppingCart
+                className={`h-6 w-6 mb-1 ${isActive("/cart") ? "stroke-2" : ""}`}
+              />
               {cartItemsCount > 0 && (
                 <Badge
-                  className="absolute -top-2 -right-2 h-5 w-5 text-xs p-0 flex items-center justify-center bg-red-500 hover:bg-red-500"
+                  className="absolute -top-2 -right-2 h-5 w-5 text-xs p-0 flex items-center justify-center bg-red-500 text-white border-2 border-white"
                   variant="destructive"
                 >
                   {cartItemsCount > 99 ? "99+" : cartItemsCount}
                 </Badge>
               )}
             </div>
-            <span className="text-xs font-medium">Cart</span>
-            {isActive("/cart") && (
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary rounded-t-full"></div>
-            )}
+            <span
+              className={`text-xs ${isActive("/cart") ? "font-semibold" : "font-medium"}`}
+            >
+              Cart
+            </span>
           </Link>
 
           {/* Profile */}
           <Link
             to="/profile"
-            className={`flex flex-col items-center justify-center h-12 w-16 px-1 py-2 rounded-lg transition-all duration-200 relative ${getActiveStyles("/profile")}`}
+            className={`flex flex-col items-center justify-center h-14 w-20 px-1 py-2 rounded-xl transition-all duration-300 relative ${
+              isActive("/profile")
+                ? "text-white bg-primary shadow-lg scale-105"
+                : "text-gray-400 hover:text-gray-600"
+            }`}
           >
-            <User className="h-5 w-5 mb-1" />
-            <span className="text-xs font-medium">Profile</span>
-            {isActive("/profile") && (
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary rounded-t-full"></div>
-            )}
+            <User
+              className={`h-6 w-6 mb-1 ${isActive("/profile") ? "stroke-2" : ""}`}
+            />
+            <span
+              className={`text-xs ${isActive("/profile") ? "font-semibold" : "font-medium"}`}
+            >
+              Profile
+            </span>
           </Link>
         </div>
       </div>
