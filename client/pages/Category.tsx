@@ -25,6 +25,10 @@ interface CategoryProduct {
 export default function Category() {
   const { categoryId } = useParams();
   const navigate = useNavigate();
+  const [showCartValidation, setShowCartValidation] = useState(false);
+  const [pendingProduct, setPendingProduct] = useState<CategoryProduct | null>(
+    null,
+  );
 
   const categoryData = {
     essentials: {
